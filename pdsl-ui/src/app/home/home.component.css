@@ -1,0 +1,31 @@
+.hero {
+  min-height: 40rem;
+  background-image: url(/assets/home/hero-vector.svg);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: contain;
+}
+
+.bkg-light-bluish {
+  background-color: #F7F9FA;
+}
+
+.hero-header {
+  min-width: 20rem;
+}
+
+.hero-header h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-family: 'Segoe UI Black', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #01579B;
+  letter-spacing: 0.5rem;
+}
+
+.hero-header p {
+  font-size: 1.5rem;
+  text-align: justify;
+  color: #374649;
+}
