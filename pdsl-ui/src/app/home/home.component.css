@@ -1,17 +1,19 @@
 .hero {
-  min-height: 40rem;
+  min-height: 55vh;
   background-image: url(/assets/home/hero-vector.svg);
   background-repeat: no-repeat;
   background-position: right top;
   background-size: contain;
-}
-
-.bkg-light-bluish {
-  background-color: #F7F9FA;
+  position: relative;
 }
 
 .hero-header {
-  min-width: 20rem;
+  max-width: 30rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .hero-header h1 {
@@ -21,7 +23,7 @@
   margin: 0;
   padding: 0;
   color: #01579B;
-  letter-spacing: 0.5rem;
+  letter-spacing:  0.93rem;
 }
 
 .hero-header p {
@@ -29,3 +31,43 @@
   text-align: justify;
   color: #374649;
 }
+
+.bkg-light-bluish {
+  background-color: #F7F9FA;
+}
+
+.card img {
+    height: 12.5rem;
+}
+
+.card h5 {
+    margin: 1rem;
+}
+
+/*
+@media (max-width: 600px) {
+
+    .hero-header {
+        max-width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 0 auto;
+        background-color: pink;
+      }
+
+      .hero-header h1 {
+        font-size: 2rem;
+        text-transform: uppercase;
+        font-family: 'Segoe UI Black', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #01579B;
+        letter-spacing: 0.4rem;
+      }
+
+      .hero-header p {
+        font-size: 0.5rem;
+        color: #374649;
+        text-align: center;
+      }
+  } */
