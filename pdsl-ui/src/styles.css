@@ -1,5 +1,9 @@
 @import url("~@fortawesome/fontawesome-free/css/all.min.css");
 
+html {
+    font-size: 1rem;
+}
+
 body {
   margin: 0 !important;
   padding: 0 !important;
