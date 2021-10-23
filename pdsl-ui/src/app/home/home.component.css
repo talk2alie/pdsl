@@ -1,19 +1,19 @@
 .hero {
-  min-height: 55vh;
+  display: flex;
+  min-height: 100vh;
   background-image: url(/assets/home/hero-vector.svg);
   background-repeat: no-repeat;
-  background-position: right top;
+  background-position: right bottom;
   background-size: contain;
-  position: relative;
+  align-items: center;
 }
 
 .hero-header {
-  max-width: 30rem;
   margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color:#F7F9FA;
 }
 
 .hero-header h1 {
@@ -23,13 +23,12 @@
   margin: 0;
   padding: 0;
   color: #01579B;
-  letter-spacing:  0.93rem;
+  letter-spacing: 0.06vw;
 }
 
 .hero-header p {
-  font-size: 1.5rem;
-  text-align: justify;
   color: #374649;
+  text-align: justify;
 }
 
 .bkg-light-bluish {
@@ -44,30 +43,23 @@
     margin: 1rem;
 }
 
-/*
-@media (max-width: 600px) {
+.card {
+  box-shadow: 2px 2px 4px #bbb;
+}
 
-    .hero-header {
-        max-width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-        margin: 0 auto;
-        background-color: pink;
-      }
+.staff-thumbnail {
+  margin-bottom: 0.5rem;
+}
 
-      .hero-header h1 {
-        font-size: 2rem;
-        text-transform: uppercase;
-        font-family: 'Segoe UI Black', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        color: #01579B;
-        letter-spacing: 0.4rem;
-      }
+.dg-thumbnail {
+  width: 200px;
+  height: 200px;
+}
 
-      .hero-header p {
-        font-size: 0.5rem;
-        color: #374649;
-        text-align: center;
-      }
-  } */
+.staff-label {
+  font-weight: bold;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #01579B;
+}
