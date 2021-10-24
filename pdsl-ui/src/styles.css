@@ -19,7 +19,7 @@ body {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-family: 'Segoe UI Black', Tahoma, Geneva, Verdana, sans-serif;
   display: inline-block;
   border-bottom: solid 0.3125rem #01579B;
@@ -34,4 +34,3 @@ h1 {
 .bg-light-blue {
     background-color: #F7F9FA;
   }
-

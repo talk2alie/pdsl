@@ -89,3 +89,59 @@
     }
 }
 /* Banner End */
+
+/* Cards Start */
+
+@media screen and (min-width: 768px) {
+    .card img {
+        min-height: 12.5rem;
+        max-height: 12.5rem;
+    }
+}
+
+.card h5 {
+    margin: 1rem;
+}
+
+.card {
+  box-shadow: 0.1875rem 0.1875rem 0.375rem #bbb;
+}
+
+/* Cards End */
+
+/* DG's Message Start */
+
+.dg-thumbnail {
+    width: 50%;
+}
+
+.dg-name, .dg-title {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.dg-hyphen {
+    display: none;
+}
+
+@media screen and (min-width: 576px) {
+    .dg-thumbnail {
+        width: 15.625rem;
+    }
+
+    .dg-name, .dg-hyphen, .dg-title {
+        display: inline-block;
+    }
+}
+
+/* DG's Message End */
+
+/* Partners Start */
+
+.partners img {
+    width: 10.3125rem;
+    box-shadow: 3px 3px 6px #bbb;
+}
+
+/* Partners End */
