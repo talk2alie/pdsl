@@ -1,0 +1,43 @@
+.copyright {
+    font-size: small;
+    color: #374649;
+}
+
+.copyright hr {
+    border: solid 0.0625rem #374649;
+}
+
+.location, .contacts, .office-hours, .press-releases {
+    text-align: center;
+}
+
+footer h6 {
+    display: inline-block;
+    border-bottom: solid 0.1875rem #374649;
+}
+
+.contacts address {
+    padding-top: 0.5rem;
+    display: inline-block;
+    border-top: solid 0.1875rem #374649;
+}
+
+.time {
+    display: inline-block;
+    padding-bottom: 1rem;
+    border-bottom: solid 0.1875rem #374649;
+}
+
+.press-releases {
+    padding-top: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+    .location, .contacts {
+        text-align: left;
+    }
+
+    .office-hours, .press-releases {
+        text-align: right;
+    }
+}

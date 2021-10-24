@@ -4,17 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [
+declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent
-  ],
-  imports: [
+    HomeComponent,
+    FooterComponent
+],
+imports: [
     BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+],
+providers: [],
+bootstrap: [AppComponent]
 })
 export class AppModule { }
