@@ -17,15 +17,21 @@ footer h6 {
 }
 
 .contacts address {
-    padding-top: 0.5rem;
-    display: inline-block;
-    border-top: solid 0.1875rem #374649;
+    display: inline-block;   
+    padding-top: 0.5rem; 
 }
 
 .time {
     display: inline-block;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     border-bottom: solid 0.1875rem #374649;
+}
+
+.location address {
+    display: inline-block;    
+    padding-bottom: 0.5rem;
+    border-bottom: solid 0.1875rem #374649;
+    margin: 0;
 }
 
 .press-releases {
