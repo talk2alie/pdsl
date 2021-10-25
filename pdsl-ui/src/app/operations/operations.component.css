@@ -53,3 +53,36 @@
 
 /* Hero End */
 
+/* Geographical Overview Start */
+
+h1 {
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: solid 0.2125rem #01579b;
+}
+
+.g-overview {
+    margin: 0.9375rem;
+}
+
+
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        border-bottom: solid 0.3125rem #01579b;
+        padding-bottom: 1rem;
+    }
+
+    .g-overview {
+        margin: 1.5rem;
+    }
+    
+}
+
+@media screen and (min-width: 1600px) {
+    .g-overview {
+        margin: 2rem 4rem;
+    }
+}
+
+/* Geographical Overview End*/
