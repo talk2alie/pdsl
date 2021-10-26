@@ -7,7 +7,14 @@ import { Component, HostListener } from '@angular/core';
 })
 export class OperationsComponent {
 
-  private viewportWidth: number = 0;
+  private viewportWidth: number;
+
+  /**
+   *
+   */
+  constructor() {
+    this.viewportWidth = window.innerWidth;    
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
