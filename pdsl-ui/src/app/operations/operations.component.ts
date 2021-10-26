@@ -1,15 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'pdsl-operations',
   templateUrl: './operations.component.html',
   styleUrls: ['./operations.component.css']
 })
-export class OperationsComponent implements OnInit {
+export class OperationsComponent {
 
-  constructor() { }
+  private viewportWidth: number = 0;
 
-  ngOnInit(): void {
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.viewportWidth = event.target.innerWidth;
   }
 
+  canApplyLargeHorizontalMargin(): boolean {
+    return this.viewportWidth >= 768;
+  }
+
+  canApplyLargeHorizontalTableMargin(): boolean {
+    return this.viewportWidth >= 992;
+  }
+
+  getHorizontalTableMarginClasses(): string {
+    if(this.viewportWidth >= 992) {
+      return 'mx-20';
+    }
+
+    if(this.viewportWidth >= 768) {
+      return 'mx-10';
+    }
+
+    return '';
+  }
+
+  getLargeThumbnailMarginClass(): string {
+    if(this.viewportWidth >= 1200) {
+      return 'mx-20';
+    }
+
+    return '';
+  }
+
+  getCardBodyClasses(): string {
+    if(this.viewportWidth < 768) {
+      return 'text-center';
+    }
+
+    return '';
+  }
 }
