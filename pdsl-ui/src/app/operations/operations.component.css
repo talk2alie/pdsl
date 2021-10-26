@@ -86,3 +86,15 @@ h1 {
 }
 
 /* Geographical Overview End*/
+
+/* Cards Start */
+
+.card {
+    box-shadow: 0.1875rem 0.1875rem 0.375rem #bbb;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Cards End */
