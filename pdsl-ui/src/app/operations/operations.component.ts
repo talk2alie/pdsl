@@ -9,9 +9,6 @@ export class OperationsComponent {
 
   private viewportWidth: number;
 
-  /**
-   *
-   */
   constructor() {
     this.viewportWidth = window.innerWidth;    
   }

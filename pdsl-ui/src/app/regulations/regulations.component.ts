@@ -9,9 +9,6 @@ export class RegulationsComponent {
 
   private viewportWidth: number;
 
-  /**
-   *
-   */
   constructor() {
     this.viewportWidth = window.innerWidth;
   }
