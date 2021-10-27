@@ -72,10 +72,6 @@ h3 {
     }
 }
 
-.card {
-    box-shadow: 0.1875rem 0.1875rem 0.375rem #bbb;
-}
-
 .card > header {
     box-sizing: border-box;
     text-align: center;
