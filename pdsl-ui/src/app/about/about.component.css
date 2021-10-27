@@ -1,0 +1,115 @@
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    height: 26vw;
+    background-image: url(/assets/about/about-hero.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+.hero header {
+    padding: 1rem 2rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hero header h1 {
+    font-size: 1.5rem;
+    color: #eee;
+    border-bottom: solid 0.2125rem #eee;
+}
+
+@media screen and (min-width: 768px) {
+    .hero header h1 {
+        font-size: 2rem;
+        border-bottom: solid 0.3125rem #eee;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .hero header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .hero header {
+        padding: 1rem 0;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .hero header h1 {
+        font-size: 3.5rem;        
+        border-bottom: solid 0.5rem #eee;
+    }
+}
+
+h1 {
+    font-size: 1.5rem;
+    border-bottom: solid 0.2125rem #01579b;
+}
+
+h3 {
+    display: inline-block;
+    font-size: 1rem;
+    border-bottom: solid 0.2125rem #01579b;
+}
+
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        border-bottom: solid 0.3125rem #01579b;
+    }
+
+    h3 {
+        display: inline-block;
+        font-size: 1.5rem;
+        border-bottom: solid 0.2325rem #01579b;
+    }
+}
+
+.card > header {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 1rem;
+    min-height: 6rem;
+    background-color: #01579b;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.card > header > a {
+    width: 6rem;
+    height: 6rem;
+    background-color: transparent;
+    border: solid 0.3325rem #fff;
+    margin: 0 auto;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.card > header > a > img {
+    color: #fff;
+    margin: auto 1rem;
+}
+
+.btn {
+    box-shadow: 0.1875rem 0.1875rem 0.375rem #bbb;
+}
+
+.mx-10 {
+    margin-left: 6rem !important;
+    margin-right: 6rem !important;
+}
+
+.mx-20 {
+    margin-left: 12rem !important;
+    margin-right: 12rem !important;
+}
