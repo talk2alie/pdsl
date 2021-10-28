@@ -113,3 +113,53 @@ h3 {
     margin-left: 12rem !important;
     margin-right: 12rem !important;
 }
+
+
+.dg-thumbnail {
+    width: 55%;
+}
+
+.dg-name, .dg-title {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.dg-hyphen {
+    display: none;
+}
+
+.staff-thumbnail {
+    margin: 0 auto;
+    width: 45%;
+}
+
+.staff-name, .staff-title {
+    font-size: small;
+}
+
+@media screen and (min-width: 576px) {
+    .staff-thumbnail {
+        width: 13.625rem;
+    }
+
+    .dg-name, .dg-hyphen, .dg-title {
+        display: inline-block;
+    }
+
+    .staff-name, .staff-title {
+        font-size: 1rem;
+    }
+
+    .dg-thumbnail {
+        width: 15.625rem;
+    }
+
+    .dg-name, .dg-hyphen, .dg-title {
+        display: inline-block;
+    }
+}
+
+a {
+    text-decoration: none;
+}

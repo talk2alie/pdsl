@@ -11,6 +11,7 @@ import { RegulationsComponent } from './regulations/regulations.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { routes } from './routes';
+import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 
 @NgModule({
 declarations: [
@@ -21,7 +22,8 @@ declarations: [
     OperationsComponent,
     RegulationsComponent,
     AboutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    StaffDetailComponent
 ],
 imports: [
     BrowserModule,
