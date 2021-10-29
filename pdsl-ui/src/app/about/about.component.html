@@ -30,13 +30,10 @@
             <div class="text-center">
                 <img class="rounded-circle dg-thumbnail mb-2" [src]="directorGeneral.profileImagePath" [alt]="directorGeneral.name">
                 <div>
-                    <a class="dg-name fw-bold pdsl-blue" [routerLink]="['/about', directorGeneral.id]" title="View Profile">
-                        {{directorGeneral.name}}
+                    <a class="dg-name fw-bold pdsl-blue" [innerText]="directorGeneral.name" [routerLink]="['/about', directorGeneral.id]" title="View Profile">
                     </a>
                     <span class="dg-hyphen">&nbsp;-&nbsp;</span>
-                    <span class="dg-title pdsl-blue mb-4">
-                        {{directorGeneral.title}}
-                    </span>
+                    <span class="dg-title pdsl-blue mb-4" [innerText]="directorGeneral.title"></span>
                 </div>
             </div>
         </div>
@@ -45,14 +42,11 @@
                 <img class="rounded-circle staff-thumbnail" [src]="currentStaff.profileImagePath"
                     [alt]="currentStaff.name">
                 <div class="mt-2">
-                    <a class="fw-bold pdsl-blue staff-name" [routerLink]="['/about', currentStaff.id]" title="View Profile">
-                        {{currentStaff.name}}
+                    <a class="fw-bold pdsl-blue staff-name" [innerText]="currentStaff.name" [routerLink]="['/about', currentStaff.id]" title="View Profile">
                     </a>
                 </div>
                 <div>
-                    <span class="pdsl-blue mb-4 staff-title">
-                        {{currentStaff.shortTitle ?? currentStaff.title}}
-                    </span>
+                    <span class="pdsl-blue mb-4 staff-title" [innerText]="currentStaff.shortTitle ?? currentStaff.title"></span>
                 </div>
             </div>
         </div>

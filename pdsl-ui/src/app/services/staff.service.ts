@@ -17,4 +17,8 @@ export class StaffService {
             });
         })
     }
+
+    getStaffById(id: number): Observable<Staff> {
+        return new Observable<Staff>(observer => observer.next(this.staff.filter(s => s.id === id)[0]));
+    }
 }

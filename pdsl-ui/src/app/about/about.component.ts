@@ -15,7 +15,7 @@ export class AboutComponent implements OnInit {
 
     constructor(private staffService: StaffService) {
         this.viewportWidth = window.innerWidth;
-        this.directorGeneral  = {
+        this.directorGeneral = {
             id: 0,
             name: '',
             title: '',
