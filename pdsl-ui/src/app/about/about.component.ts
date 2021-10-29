@@ -1,57 +1,74 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Staff } from '../services/staff.interface';
+import { StaffService } from '../services/staff.service';
 
 @Component({
-  selector: 'pdsl-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+    selector: 'pdsl-about',
+    templateUrl: './about.component.html',
+    styleUrls: ['./about.component.css'],
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit {
+    private viewportWidth: number;
+    staff: Staff[] = [];
+    directorGeneral: Staff;
+    errorMessage: string = '';
 
-  private viewportWidth: number;
-
-  constructor() {
-    this.viewportWidth = window.innerWidth;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.viewportWidth = event.target.innerWidth;
-  }
-
-  canApplyLargeHorizontalMargin(): boolean {
-    return this.viewportWidth >= 768;
-  }
-
-  canApplyLargeHorizontalTableMargin(): boolean {
-    return this.viewportWidth >= 992;
-  }
-
-  getHorizontalTableMarginClasses(): string {
-    if (this.viewportWidth >= 992) {
-      return 'mx-20';
+    constructor(private staffService: StaffService) {
+        this.viewportWidth = window.innerWidth;
+        this.directorGeneral  = {
+            id: 0,
+            name: '',
+            title: '',
+            profileImagePath: ''
+        };
     }
 
-    if (this.viewportWidth >= 768) {
-      return 'mx-10';
+    ngOnInit(): void {
+        const directorGeneralsId = 1;
+        this.staffService.getAllStaff().subscribe({
+            next: staff => staff.id === directorGeneralsId ? this.directorGeneral = staff : this.staff.push(staff),
+            error: error => this.errorMessage = error
+        });
     }
 
-    return '';
-  }
-
-  getLargeThumbnailMarginClass(): string {
-    if (this.viewportWidth >= 1200) {
-      return 'mx-20';
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any) {
+        this.viewportWidth = event.target.innerWidth;
     }
 
-    return '';
-  }
-
-  getCardBodyClasses(): string {
-    if (this.viewportWidth < 768) {
-      return 'text-center';
+    canApplyLargeHorizontalMargin(): boolean {
+        return this.viewportWidth >= 768;
     }
 
-    return '';
-  }
+    canApplyLargeHorizontalTableMargin(): boolean {
+        return this.viewportWidth >= 992;
+    }
 
+    getHorizontalTableMarginClasses(): string {
+        if (this.viewportWidth >= 992) {
+            return 'mx-20';
+        }
+
+        if (this.viewportWidth >= 768) {
+            return 'mx-10';
+        }
+
+        return '';
+    }
+
+    getLargeThumbnailMarginClass(): string {
+        if (this.viewportWidth >= 1200) {
+            return 'mx-20';
+        }
+
+        return '';
+    }
+
+    getCardBodyClasses(): string {
+        if (this.viewportWidth < 768) {
+            return 'text-center';
+        }
+
+        return '';
+    }
 }
