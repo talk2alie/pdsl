@@ -35,6 +35,11 @@ header > img {
 }
 
 @media screen and (min-width: 768px) {
+
+    .container {
+        padding: 0 3rem;
+    }
+
     header {
         display: flex;
         align-items: center;
