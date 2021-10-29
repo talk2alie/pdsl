@@ -1,4 +1,3 @@
-import { profile } from 'console';
 import { Staff } from './staff.interface';
 
 export const staff: Staff[] = [
@@ -28,7 +27,7 @@ export const staff: Staff[] = [
                 text: 'Complimenting his technical competence, he also brings some strong personal qualities. The Director-General is a highly effective and diplomatic interlocutor with an excellent track record in improving project efficiency, leading programs and cross-disciplinary teams with an outcome-focused approach while distilling technical and financial complexities and cultural sensitivities.'
             },
             {
-                text: 'His confident ‘lead from the front’ approach, generates high morale and confidence among the people he works with.
+                text: 'His confident ‘lead from the front’ approach, generates high morale and confidence among the people he works with.'
             }
         ],
     },
