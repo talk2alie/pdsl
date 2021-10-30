@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Staff } from '../services/staff.interface';
 import { StaffService } from '../services/staff.service';
 
@@ -13,7 +14,7 @@ export class AboutComponent implements OnInit {
     directorGeneral: Staff;
     errorMessage: string = '';
 
-    constructor(private staffService: StaffService) {
+    constructor(private staffService: StaffService, private titleService: Title) {
         this.viewportWidth = window.innerWidth;
         this.directorGeneral = {
             id: 0,
@@ -21,6 +22,7 @@ export class AboutComponent implements OnInit {
             title: '',
             profileImagePath: ''
         };
+        this.titleService.setTitle('PDSL | About Us');
     }
 
     ngOnInit(): void {

@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'pdsl-operations',
@@ -9,8 +10,9 @@ export class OperationsComponent {
 
   private viewportWidth: number;
 
-  constructor() {
-    this.viewportWidth = window.innerWidth;    
+  constructor(private titleService: Title) {
+    this.viewportWidth = window.innerWidth;
+    this.titleService.setTitle('PDSL | Operations');
   }
 
   @HostListener('window:resize', ['$event'])
