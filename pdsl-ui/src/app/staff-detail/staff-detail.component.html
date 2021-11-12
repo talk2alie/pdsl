@@ -1,71 +1,18 @@
 <section class="bg-light-blue pt-5 pb-5">
     <div class="container bg-light shadow-sm">
         <header class="pt-5 px-3">
-            <img src="/assets/about/dg-bio.jpg" class="rounded-circle" alt="Foday Mansaray">
+            <img [src]="staff.profileImagePath" class="rounded-circle" alt="Foday Mansaray">
             <div>
-                <h2>Foday B. L. Mansaray, <small>MSc. BEng</small></h2>
-                <p>
-                    Director General
-                </p>
+                <h2>
+                    {{staff.name}}<small *ngIf="staff.accolades">, {{staff.accolades}}</small>
+                </h2>
+                <p [innerText]="staff.title"></p>
             </div>
         </header>
         <div class="row pb-5">
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="staff.bio">
                 <div class="profile-text px-4">
-                    <p>
-                        Director-General Foday Mansaray holds an MSc in Advanced Chemical Engineering (University of
-                        Birmingham; UK) and a BEng in
-                        Chemical Engineering with Management Studies (Aston University; UK). He is an engineer with
-                        extensive international
-                        experience, possessing superb leadership, organizational, communication, and technical skills.
-                        He is multi-lingual,
-                        speaking English and Krio, and proficient in French.
-                    </p>
-                    <p>
-                        The Director General’s wealth of international experience includes delivering and consulting on
-                        multi-billion-dollar oil and
-                        gas exploration and production projects globally including in Algeria, Australia, Brazil, Egypt,
-                        Gabon, GOM, Israel,
-                        Kazakhstan, Nigeria, UK, and UAE.
-                    </p>
-                    <p>
-                        Having worked for world-class oil and gas organizations such as AMEC, Expro Group, Schlumberger,
-                        TechnipFMC, Total, and Wood
-                        as well as consulting for companies such as ADNOC, Aramco, BP, Chevron, and Shell, he has
-                        cultivated strong relationships in
-                        the oil and gas sector.
-                    </p>
-                    <p>
-                        Director-General Foday Mansaray’s experience has provided a solid grounding in exploration
-                        activities, project planning,
-                        project managing, accounting, marketing, process economics, safety, and international
-                        regulations. He has extensive technical
-                        and practical hands-on knowledge of the key operating systems within the offshore and onshore
-                        Oil and Gas industry processing
-                        chain. This includes subsea processing and flow assurance, fluid separation, gas treatment,
-                        produced water management, and
-                        Life of Field management strategies.
-                    </p>
-                    <p>
-                        The Director General’s key areas of expertise are project management and providing existing
-                        mature company assets and
-                        greenfield projects with a full range of technical expertise and services to ensure safe,
-                        environmentally sound, and
-                        economically viable production of hydrocarbons.
-                    </p>
-                    <p>
-                        Complimenting his technical competence, he also brings some strong personal qualities. The
-                        Director-General is a highly
-                        effective and diplomatic interlocutor with an excellent track record in improving project
-                        efficiency, leading programs and
-                        cross-disciplinary teams with an outcome-focused approach while distilling technical and
-                        financial complexities and cultural
-                        sensitivities.
-                    </p>
-                    <p>
-                        His confident ‘lead from the front’ approach, generates high morale and confidence among the
-                        people he works with.
-                    </p>
+                    <p *ngFor="let paragraph of staff.bio" [innerText]="paragraph.text"></p>
                 </div>
             </div>
         </div>
