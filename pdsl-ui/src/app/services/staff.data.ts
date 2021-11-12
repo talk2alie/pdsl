@@ -100,7 +100,7 @@ export const staff: Staff[] = [
         name: 'Mohamed A. S. Mustapha',
         shortTitle: 'Head, Procurement & Logistics',
         title: 'Head of Procurement and Logistics',
-        profileImagePath: '/assets/about/masm.png',
+        profileImagePath: '/assets/about/masm.jpg',
         bio: [
             {
                 text: 'The Head of Procurement and Logistics holds an MSc, Service Management at Stenden University, The Netherlands, BBA -International Business and Management Studies at MHL University of Applied Sciences, BSc -Bookkeeping &Accounting at Friesport Leidijk University, and HND -Business Administration at Friesport Leidijk University.'

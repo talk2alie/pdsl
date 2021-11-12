@@ -9,11 +9,20 @@
             <div class="col text-center">
                 <h1 class="pdsl-blue mb-4">Who we are</h1>
                 <p class="lead" [class.mx-10]="canApplyLargeHorizontalMargin()">
-                    The Petroleum Directorate of Sierra Leone is a governmental regulatory and administrative body.
+                    The Petroleum Directorate of Sierra Leone (PDSL) is a governmental regulatory and administrative
+                    body.
                     Established in 2003,
                     the Petroleum Directorate is responsible for the general management and monitoring of the petroleum
                     resources of
                     Sierra Leone.
+                </p>
+                <p class="lead" [class.mx-10]="canApplyLargeHorizontalMargin()">
+                    PDSL, positioned under the Office of the President, H.E. Dr. Julius Maada Bio, is the sole authority
+                    responsible for monitoring and regulating all upstream oil and gas activities in Sierra Leone.
+                </p>
+                <p class="lead" [class.mx-10]="canApplyLargeHorizontalMargin()">
+                    This set up gives us the flexibility to negotiate petroleum license agreements with efficiency and
+                    reduced bureaucracy that is of mutual benefit to the state and to the investor.
                 </p>
             </div>
         </div>
@@ -28,9 +37,11 @@
         </div>
         <div class="d-flex justify-content-center align-items-center flex-wrap">
             <div class="text-center">
-                <img class="rounded-circle dg-thumbnail mb-2" [src]="directorGeneral.profileImagePath" [alt]="directorGeneral.name">
+                <img class="rounded-circle dg-thumbnail shadow-sm mb-2" [src]="directorGeneral.profileImagePath"
+                    [alt]="directorGeneral.name">
                 <div>
-                    <a class="dg-name fw-bold pdsl-blue" [innerText]="directorGeneral.name" [routerLink]="['/about', directorGeneral.id]" title="View Profile">
+                    <a class="dg-name fw-bold pdsl-blue" [innerText]="directorGeneral.name"
+                        [routerLink]="['/about', directorGeneral.id]" title="View Profile">
                     </a>
                     <span class="dg-hyphen">&nbsp;-&nbsp;</span>
                     <span class="dg-title pdsl-blue mb-4" [innerText]="directorGeneral.title"></span>
@@ -39,14 +50,16 @@
         </div>
         <div class="d-flex justify-content-center align-items-center flex-wrap">
             <div *ngFor="let currentStaff of staff" class="text-center m-4">
-                <img class="rounded-circle staff-thumbnail" [src]="currentStaff.profileImagePath"
+                <img class="rounded-circle staff-thumbnail shadow-sm" [src]="currentStaff.profileImagePath"
                     [alt]="currentStaff.name">
                 <div class="mt-2">
-                    <a class="fw-bold pdsl-blue staff-name" [innerText]="currentStaff.name" [routerLink]="['/about', currentStaff.id]" title="View Profile">
+                    <a class="fw-bold pdsl-blue staff-name" [innerText]="currentStaff.name"
+                        [routerLink]="['/about', currentStaff.id]" title="View Profile">
                     </a>
                 </div>
                 <div>
-                    <span class="pdsl-blue mb-4 staff-title" [innerText]="currentStaff.shortTitle ?? currentStaff.title"></span>
+                    <span class="pdsl-blue mb-4 staff-title"
+                        [innerText]="currentStaff.shortTitle ?? currentStaff.title"></span>
                 </div>
             </div>
         </div>
@@ -63,8 +76,10 @@
                     <div class="card-body">
                         <h5 class="pdsl-blue pb-1 mb-2">Our Values</h5>
                         <p class="card-text">
-                            Transparency, accountability, integrity, and collaboration are the backbone for achieving our collective ambition,
-                            which is to be a world-class petroleum regulator. These four core values guide our actions and relationships with
+                            Transparency, accountability, integrity, and collaboration are the backbone for achieving
+                            our collective ambition,
+                            which is to be a world-class petroleum regulator. These four core values guide our actions
+                            and relationships with
                             stakeholders.
                         </p>
                     </div>
@@ -78,7 +93,8 @@
                     <div class="card-body">
                         <h5 class="pdsl-blue pb-1 mb-2">Our Mission</h5>
                         <p class="card-text">
-                            Our mission is to facilitate the optimal exploration and development of the Republic of Sierra Leone’s petroleum
+                            Our mission is to facilitate the optimal exploration and development of the Republic of
+                            Sierra Leone’s petroleum
                             resources for the long-term benefit of her people.
                         </p>
                     </div>
@@ -92,8 +108,10 @@
                     <div class="card-body">
                         <h5 class="pdsl-blue pb-1 mb-2">Our Vision</h5>
                         <p class="card-text">
-                            Our vision is to lead the process of unlocking and realizing The Republic of Sierra Leone’s petroleum resource
-                            potential and transform the country’s growth agenda through the sustainable development of the petroleum sector.
+                            Our vision is to lead the process of unlocking and realizing The Republic of Sierra Leone’s
+                            petroleum resource
+                            potential and transform the country’s growth agenda through the sustainable development of
+                            the petroleum sector.
                         </p>
                     </div>
                 </div>
