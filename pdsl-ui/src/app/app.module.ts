@@ -12,6 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { routes } from './routes';
 import { StaffDetailComponent } from './staff-detail/staff-detail.component';
+import { ApplicationsComponent } from './applications/applications.component';
 
 @NgModule({
 declarations: [
@@ -23,7 +24,8 @@ declarations: [
     RegulationsComponent,
     AboutComponent,
     PageNotFoundComponent,
-    StaffDetailComponent
+    StaffDetailComponent,
+    ApplicationsComponent
 ],
 imports: [
     BrowserModule,
