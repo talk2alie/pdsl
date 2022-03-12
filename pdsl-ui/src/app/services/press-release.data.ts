@@ -6,6 +6,8 @@ export const pressReleases: PressRelease[] = [
         heroImage: '/assets/press-releases/hero.jpg',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        documentLink:
+            '/assets/applications/1 Pre-Qualification Guidelines For Investors.pdf',
         releaseDate: new Date('2021-12-12'),
     },
     {
@@ -13,6 +15,8 @@ export const pressReleases: PressRelease[] = [
         heroImage: '/assets/press-releases/hero.jpg',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        documentLink:
+            '/assets/applications/1 Pre-Qualification Guidelines For Investors.pdf',
         releaseDate: new Date('2022-01-15'),
     },
     {
@@ -20,13 +24,17 @@ export const pressReleases: PressRelease[] = [
         heroImage: '/assets/press-releases/hero.jpg',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        documentLink:
+            '/assets/applications/1 Pre-Qualification Guidelines For Investors.pdf',
         releaseDate: new Date('2021-12-15'),
     },
     {
-        title: 'President Bio Recognizes Petroleum Directrate\'s International Work',
+        title: "President Bio Recognizes Petroleum Directrate's International Work",
         heroImage: '/assets/press-releases/hero.jpg',
         description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        documentLink:
+            '/assets/applications/1 Pre-Qualification Guidelines For Investors.pdf',
         releaseDate: new Date('2021-12-22'),
     },
     {
@@ -34,6 +42,8 @@ export const pressReleases: PressRelease[] = [
         heroImage: '/assets/press-releases/hero.jpg',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        documentLink:
+            '/assets/applications/1 Pre-Qualification Guidelines For Investors.pdf',
         releaseDate: new Date('2022-02-12'),
-    }
+    },
 ];

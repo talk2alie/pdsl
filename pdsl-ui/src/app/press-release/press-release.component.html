@@ -19,16 +19,21 @@
                 <hr>
             </div>
             <div class="col-md-8 press-releases">
-                <p *ngIf="pressReleases.length == 0" class="text-info fst-italic">
+                <p *ngIf="pressReleases.length == 0"
+                   class="text-info fst-italic">
                     No new press releases available. Please check back later.
                 </p>
                 <div class="card mb-3 shadow-sm"
                      *ngFor="let pressRelease of pressReleases">
                     <div class="row g-0">
                         <div class="col-md-4 p-3">
-                            <img [src]="pressRelease.heroImage"
-                                 class="img-fluid"
-                                 alt="...">
+                            <a [href]="pressRelease.documentLink"
+                               class="stretched-link"
+                               target="_blank">
+                                <img [src]="pressRelease.heroImage"
+                                     class="img-fluid"
+                                     [alt]="pressRelease.title">
+                            </a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -36,7 +41,8 @@
                                 <p class="card-text"
                                    [innerText]="pressRelease.description"></p>
                                 <p class="card-text text-end">
-                                    Released on: <small class="text-muted" [innerText]="pressRelease.releaseDate | date: 'shortDate'"></small>
+                                    Released on: <small class="text-muted"
+                                           [innerText]="pressRelease.releaseDate | date: 'shortDate'"></small>
                                 </p>
                             </div>
                         </div>
