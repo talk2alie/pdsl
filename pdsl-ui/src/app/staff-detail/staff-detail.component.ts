@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Staff } from '../services/staff.interface';
+import { Staff } from '../services/staff.model';
 import { StaffService } from '../services/staff.service';
 
 @Component({

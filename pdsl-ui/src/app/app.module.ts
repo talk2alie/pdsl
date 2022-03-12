@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { routes } from './routes';
 import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 import { ApplicationsComponent } from './applications/applications.component';
+import { PressReleaseComponent } from './press-release/press-release.component';
 
 @NgModule({
 declarations: [
@@ -25,7 +26,8 @@ declarations: [
     AboutComponent,
     PageNotFoundComponent,
     StaffDetailComponent,
-    ApplicationsComponent
+    ApplicationsComponent,
+    PressReleaseComponent
 ],
 imports: [
     BrowserModule,

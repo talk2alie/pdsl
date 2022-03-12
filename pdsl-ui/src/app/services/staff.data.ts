@@ -1,4 +1,4 @@
-import { Staff } from './staff.interface';
+import { Staff } from './staff.model';
 
 export const staff: Staff[] = [
     {

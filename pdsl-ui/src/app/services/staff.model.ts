@@ -1,4 +1,4 @@
-import { Paragraph } from './paragraph.interface';
+import { Paragraph } from './paragraph.model';
 
 export interface Staff {
     id: number;

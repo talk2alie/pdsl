@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { staff } from './staff.data';
-import { Staff } from './staff.interface';
+import { Staff } from './staff.model';
 
 @Injectable({
     providedIn: 'root',
