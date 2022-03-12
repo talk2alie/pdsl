@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { PressRelease } from '../services/press-release.model';
+import { PressReleaseService } from '../services/press-release.service';
 
 @Component({
     selector: 'pdsl-press-release',
@@ -8,10 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class PressReleaseComponent implements OnInit {
     isSortByDate: boolean = true;
     isSortByTitle: boolean = false;
+    pressReleases: PressRelease[] = [];
 
-    constructor() {}
+    constructor(private pressReleasesService: PressReleaseService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.pressReleasesService.getPressReleases()
+            .subscribe(pressReleases => {
+                this.pressReleases = pressReleases;
+                this.sort();
+            });
+    }
 
     getSortByDateClass(): string {
         return this.isSortByDate ? 'btn-primary' : 'btn-outline-primary';
@@ -24,10 +33,42 @@ export class PressReleaseComponent implements OnInit {
     sortByDate(): void {
         this.isSortByDate = true;
         this.isSortByTitle = false;
+
+        this.sort();
     }
 
     sortByTitle(): void {
         this.isSortByTitle = true;
         this.isSortByDate = false;
+
+        this.sort();
+    }
+
+    private sort(): void {
+        if(this.pressReleases) {
+            if(this.isSortByDate) {
+                this.pressReleases.sort((a: PressRelease, b: PressRelease) => {
+                    if(a.releaseDate > b.releaseDate) {
+                        return 1;
+                    } else if(a.releaseDate < b.releaseDate) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
+
+            if (this.isSortByTitle) {
+                this.pressReleases.sort((a: PressRelease, b: PressRelease) => {
+                    if (a.title > b.title) {
+                        return 1;
+                    } else if (a.title < b.title) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
+        }
     }
 }

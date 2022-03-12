@@ -167,3 +167,16 @@ h5 {
         border-bottom: solid 0.3rem #01579b;
    }
 }
+
+.press-releases {
+    color: #8A8989;
+}
+
+.press-releases h5 {
+    text-decoration: none;
+    border: none;
+    color: #01579b;
+    margin-bottom: 1rem;
+    font-family: 'Segoe UI Light', sans-serif;
+    font-weight: lighter;
+}
