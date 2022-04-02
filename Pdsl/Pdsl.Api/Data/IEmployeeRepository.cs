@@ -2,9 +2,9 @@
 {
     public interface IEmployeeRepository
     {
-        public Task<Employee> GetByLocatorId(string locatorId);
-        public Task<IEnumerable<Employee>> GetAll();
-        public Task<int> Add(Employee employee);
-        public Task<int> Update(Employee employee);
+        public Employee? GetByLocatorId(string locatorId);
+        public IQueryable<Employee>? Get(Func<Employee, bool>? filter);
+        public void Add(Employee employee);
+        public void Update(Employee employee);
     }
 }

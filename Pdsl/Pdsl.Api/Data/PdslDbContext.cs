@@ -19,6 +19,11 @@ namespace Pdsl.Api.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if(optionsBuilder.IsConfigured)
+            {
+                return;
+            }
+
             var connectionString = "Server=MAP-PC\\DEV110;Database=Pdsl;Trusted_Connection=True;";
             optionsBuilder.UseSqlServer(connectionString);
         }
@@ -50,6 +55,19 @@ namespace Pdsl.Api.Data
                        .HasForeignKey(e => e.UploaderId);
                 builder.HasIndex(e => e.LocatorId)
                        .IsUnique();
+
+                builder.HasData(new[]
+                {
+                    new Employee
+                    {
+                        Id = -111,
+                        Title = "Admin",
+                        FirstName = "Hafiz",
+                        MiddleName = "Mohamed",
+                        LastName = "Pussah",
+                        LocatorId = $"{Guid.NewGuid()}"                        
+                    }
+                });
             });
 
             modelBuilder.Entity<PressRelease>(builder =>

@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "zEoeGAiGf8mP/45FzEYfwXOC/UaPJwejAn7KYBE4MYDziQwpYJvy1sZCYAYW97lSGRQhpP0fnEaZfaIM0fvi9A==",
+  "dgSpecHash": "1GpqORg/kbLvbtoG5ruvKtrRVtuhWBPPrZrzD01ZZEnU0FoJfI3RYmlmY8lJxHGCHmPr9NYcawXxEiYER/EzOQ==",
   "success": true,
   "projectFilePath": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Api\\Pdsl.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\talk2\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\talk2\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\talk2\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\talk2\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\talk2\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\talk2\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\talk2\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\talk2\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.3\\microsoft.entityframeworkcore.6.0.3.nupkg.sha512",

@@ -12,7 +12,7 @@ using Pdsl.Api.Data;
 namespace Pdsl.Api.Migrations
 {
     [DbContext(typeof(PdslDbContext))]
-    [Migration("20220402001304_Initial")]
+    [Migration("20220402120517_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,17 @@ namespace Pdsl.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -111,
+                            FirstName = "Hafiz",
+                            LastName = "Pussah",
+                            LocatorId = "2b7855c3-2f09-4bf7-ad0a-a4e449fe7308",
+                            MiddleName = "Mohamed",
+                            Title = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Pdsl.Api.Data.PressRelease", b =>

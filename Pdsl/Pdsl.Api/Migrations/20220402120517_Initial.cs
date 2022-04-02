@@ -53,6 +53,11 @@ namespace Pdsl.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "FirstName", "LastName", "LocatorId", "MiddleName", "Suffix", "Title" },
+                values: new object[] { -111, "Hafiz", "Pussah", "2b7855c3-2f09-4bf7-ad0a-a4e449fe7308", "Mohamed", null, "Admin" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_LocatorId",
                 table: "Employees",
