@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Pdsl.Api.Data
+﻿namespace Pdsl.Api.Data
 {
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -15,12 +13,12 @@ namespace Pdsl.Api.Data
 
         public IQueryable<Employee>? Get(Func<Employee, bool>? filter = null)
         {
-            if(filter is null)
+            if (filter is null)
             {
                 return dbContext.Employees;
             }
 
-            return dbContext.Employees?.Where(employee => filter(employee));
+            return dbContext.Employees?.Where(filter).AsQueryable();
         }
 
         public Employee? GetByLocatorId(string locatorId) => Get(employee => employee.LocatorId == locatorId)?.FirstOrDefault();

@@ -26,8 +26,9 @@ namespace Pdsl.Api.Services
 
         public Task<int> Add(Release release)
         {
+            release.Id = $"{Guid.NewGuid()}";
             var employee = unitOfWork.EmployeeRepository.GetByLocatorId(release.UploaderId);
-            if(employee is null)
+            if (employee is null)
             {
                 throw new ArgumentException("There is no employee matching the uploader");
             }

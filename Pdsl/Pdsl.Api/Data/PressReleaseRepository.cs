@@ -13,7 +13,7 @@
 
         public IQueryable<PressRelease>? Get(Func<PressRelease, bool>? filter)
         {
-            if(filter is null)
+            if (filter is null)
             {
                 return dbContext.PressReleases;
             }
@@ -21,7 +21,7 @@
             return dbContext.PressReleases?.Where(pressRelease => filter(pressRelease));
         }
 
-        public PressRelease? GetPressReleaseByLocatorId(string locatorId) => 
+        public PressRelease? GetPressReleaseByLocatorId(string locatorId) =>
             Get(pressRelease => pressRelease.LocatorId == locatorId)?.FirstOrDefault();
 
         public void Update(PressRelease pressRelease) => dbContext.PressReleases?.Update(pressRelease);

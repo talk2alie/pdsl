@@ -19,7 +19,7 @@ namespace Pdsl.Api.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(optionsBuilder.IsConfigured)
+            if (optionsBuilder.IsConfigured)
             {
                 return;
             }
@@ -65,7 +65,7 @@ namespace Pdsl.Api.Data
                         FirstName = "Hafiz",
                         MiddleName = "Mohamed",
                         LastName = "Pussah",
-                        LocatorId = $"{Guid.NewGuid()}"                        
+                        LocatorId = $"{Guid.NewGuid()}"
                     }
                 });
             });

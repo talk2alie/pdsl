@@ -2,11 +2,6 @@
 using Pdsl.Api.Data;
 using Pdsl.Api.Models;
 using Pdsl.Api.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pdsl.Api.Profiles
 {
@@ -23,7 +18,7 @@ namespace Pdsl.Api.Profiles
             CreateMap<Release, PressRelease>()
                 .ForMember(pr => pr.Id, options => options.Ignore())
                 .ForMember(pr => pr.Abstract, options => options.MapFrom(r => r.Description))
-                .ForMember(pr => pr.HeroImageFilePath, options => options.MapFrom(r => r.TitleImagePath))
+                .ForMember(pr => pr.HeroImageFilePath, options => options.MapFrom(r => r.BannerImagePath))
                 .ForMember(pr => pr.DataFilePath, options => options.MapFrom(r => r.FilePath))
                 .ForMember(pr => pr.LocatorId, options => options.MapFrom(r => r.Id))
                 .ForMember(pr => pr.UploaderId, options => options.Ignore())
@@ -31,6 +26,9 @@ namespace Pdsl.Api.Profiles
 
             CreateMap<StaffToAdd, Staff>()
                 .ForMember(s => s.Title, options => options.MapFrom(sta => sta.Position))
+                .ReverseMap();
+
+            CreateMap<ReleaseToAdd, Release>()
                 .ReverseMap();
         }
     }

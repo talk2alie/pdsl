@@ -13,7 +13,7 @@ namespace Pdsl.Api.Controllers
         public StaffController(ILogger<StaffController> loger
             , IMapper mapper
             , IApplicationService appService
-        ): base(loger, mapper, appService) { }
+        ) : base(loger, mapper, appService) { }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] StaffToAdd staffToAdd)

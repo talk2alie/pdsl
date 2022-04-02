@@ -1,8 +1,8 @@
-﻿namespace Pdsl.Api.Models
+﻿namespace Pdsl.Api.ViewModels
 {
-    public class Release
+    public class ReleaseToAdd
     {
-        public string Id { get; set; } = string.Empty;
+        public string? Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string BannerImagePath { get; set; } = string.Empty;

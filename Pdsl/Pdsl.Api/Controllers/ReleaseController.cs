@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Pdsl.Api.Models;
 using Pdsl.Api.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Pdsl.Api.ViewModels;
 
 namespace Pdsl.Api.Controllers
 {
@@ -16,5 +13,18 @@ namespace Pdsl.Api.Controllers
         public ReleaseController(ILogger<StaffController> loger
             , IMapper mapper
             , IApplicationService appService) : base(loger, mapper, appService) { }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] ReleaseToAdd releaseToAdd)
+        {
+            var release = mapper.Map<Release>(releaseToAdd);
+            var result = await appService.Add(release);
+            if (result > 0)
+            {
+                return Ok(release);
+            }
+
+            return BadRequest();
+        }
     }
 }
