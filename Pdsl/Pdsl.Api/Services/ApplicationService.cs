@@ -39,9 +39,22 @@ namespace Pdsl.Api.Services
             return unitOfWork.Commit();
         }
 
-        public IEnumerable<Release> GetDisplayableReleases()
+        public IEnumerable<Release> GetFrontPageReleases()
         {
-            throw new NotImplementedException();
+            var forteenDaysAgo = DateTime.UtcNow.AddDays(-14);
+            var todaysDate = DateTime.UtcNow;
+
+            var frontPagePressReleases = unitOfWork.PressReleaseRepository
+                                                   .Get(pr => pr.ReleaseDate >= forteenDaysAgo && pr.ReleaseDate <= todaysDate)
+                                                   ?.OrderByDescending(r => r.ReleaseDate)
+                                                   ?.ToList();
+            if(frontPagePressReleases is null)
+            {
+                return new List<Release>();
+            }
+
+            var frontPageReleases = mapper.Map<List<Release>>(frontPagePressReleases);
+            return frontPageReleases;
         }
 
         public Release GetReleaseById(string id)
@@ -49,9 +62,22 @@ namespace Pdsl.Api.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Release> GetReleases()
+        public IEnumerable<Release> GetArchivedReleases()
         {
-            throw new NotImplementedException();
+            var oneYearAgo = DateTime.UtcNow.AddYears(-1);
+            var forteenDaysAgo = DateTime.UtcNow.AddDays(-14);
+
+            var pressReleases = unitOfWork.PressReleaseRepository
+                                          .Get(pr => pr.ReleaseDate >= oneYearAgo && pr.ReleaseDate < forteenDaysAgo)
+                                          ?.OrderByDescending(pr => pr.ReleaseDate)
+                                          ?.ToList();
+            if(pressReleases is null)
+            {
+                return new List<Release>();
+            }
+
+            var releases = mapper.Map<List<Release>>(pressReleases);
+            return releases;
         }
 
         public IEnumerable<Release> GetReleasesByStaffId(string staffId)

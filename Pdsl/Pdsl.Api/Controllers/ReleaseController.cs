@@ -26,5 +26,21 @@ namespace Pdsl.Api.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet]
+        public IActionResult GetArchived()
+        {
+            var releases = appService.GetArchivedReleases();
+            var releasesToView = mapper.Map<List<ReleaseToView>>(releases);
+            return Ok(releasesToView);
+        }
+
+        [HttpGet("front-page")]
+        public IActionResult GetFrontPage()
+        {
+            var releases = appService.GetFrontPageReleases();
+            var releaseToView = mapper.Map<List<ReleaseToView>>(releases);
+            return Ok(releaseToView);
+        }
     }
 }

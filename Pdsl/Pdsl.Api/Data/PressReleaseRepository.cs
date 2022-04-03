@@ -18,7 +18,7 @@
                 return dbContext.PressReleases;
             }
 
-            return dbContext.PressReleases?.Where(pressRelease => filter(pressRelease));
+            return dbContext.PressReleases?.Where(filter).AsQueryable();
         }
 
         public PressRelease? GetPressReleaseByLocatorId(string locatorId) =>

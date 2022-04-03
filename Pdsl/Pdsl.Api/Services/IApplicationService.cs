@@ -7,8 +7,8 @@ namespace Pdsl.Api.Services
         public Task<int> Add(Staff staff);
 
         public Task<int> Add(Release release);
-        public IEnumerable<Release> GetReleases();
-        public IEnumerable<Release> GetDisplayableReleases();
+        public IEnumerable<Release> GetArchivedReleases();
+        public IEnumerable<Release> GetFrontPageReleases();
         public Release GetReleaseById(string id);
         public IEnumerable<Release> GetReleasesByStaffId(string staffId);
     }

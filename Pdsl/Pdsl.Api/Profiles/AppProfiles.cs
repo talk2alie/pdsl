@@ -30,6 +30,9 @@ namespace Pdsl.Api.Profiles
 
             CreateMap<ReleaseToAdd, Release>()
                 .ReverseMap();
+
+            CreateMap<ReleaseToView, Release>()
+                .ReverseMap();
         }
     }
 }
