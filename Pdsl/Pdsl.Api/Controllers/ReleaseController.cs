@@ -27,7 +27,7 @@ namespace Pdsl.Api.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
+        [HttpGet("archived")]
         public IActionResult GetArchived()
         {
             var releases = appService.GetArchivedReleases();
@@ -35,12 +35,24 @@ namespace Pdsl.Api.Controllers
             return Ok(releasesToView);
         }
 
-        [HttpGet("front-page")]
-        public IActionResult GetFrontPage()
+        [HttpGet("most-recent")]
+        public IActionResult GetMostRecentReleases()
         {
-            var releases = appService.GetFrontPageReleases();
+            var releases = appService.GetMostRecentReleases();
             var releaseToView = mapper.Map<List<ReleaseToView>>(releases);
             return Ok(releaseToView);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById([FromRoute]string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest();
+            }
+
+            var release = appService.GetReleaseById(id);
+            return Ok(release);
+        }        
     }
 }

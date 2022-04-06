@@ -39,7 +39,7 @@ namespace Pdsl.Api.Services
             return unitOfWork.Commit();
         }
 
-        public IEnumerable<Release> GetFrontPageReleases()
+        public IEnumerable<Release> GetMostRecentReleases()
         {
             var forteenDaysAgo = DateTime.UtcNow.AddDays(-14);
             var todaysDate = DateTime.UtcNow;
@@ -59,7 +59,14 @@ namespace Pdsl.Api.Services
 
         public Release GetReleaseById(string id)
         {
-            throw new NotImplementedException();
+            var pressRelease = unitOfWork.PressReleaseRepository.Get(pr => pr.LocatorId == id)?.FirstOrDefault();
+            if(pressRelease is null)
+            {
+                throw new ArgumentException($"There is no press release with the id, {id}", nameof(id));
+            }
+
+            var release = mapper.Map<Release>(pressRelease);
+            return release;
         }
 
         public IEnumerable<Release> GetArchivedReleases()
@@ -82,17 +89,22 @@ namespace Pdsl.Api.Services
 
         public IEnumerable<Release> GetReleasesByStaffId(string staffId)
         {
-            throw new NotImplementedException();
-        }
+            var uploader = unitOfWork.EmployeeRepository.GetByLocatorId(staffId);
+            if(uploader is null)
+            {
+                throw new ArgumentException($"There is no employee with id, {staffId}");
+            }
 
-        public Staff GetStaffById(string id)
-        {
-            throw new NotImplementedException();
-        }
+            var releases = new List<Release>();
 
-        public Task<int> UpdateStaff(Staff staff)
-        {
-            throw new NotImplementedException();
+            var pressReleases = unitOfWork.PressReleaseRepository.Get(pr => pr.UploaderId == uploader.Id)?.ToList();
+            if(pressReleases is null || pressReleases.Count == 0)
+            {
+                return releases;
+            }
+
+            releases = mapper.Map<List<Release>>(pressReleases);
+            return releases;
         }
     }
 }

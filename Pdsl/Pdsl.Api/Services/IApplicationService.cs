@@ -8,7 +8,7 @@ namespace Pdsl.Api.Services
 
         public Task<int> Add(Release release);
         public IEnumerable<Release> GetArchivedReleases();
-        public IEnumerable<Release> GetFrontPageReleases();
+        public IEnumerable<Release> GetMostRecentReleases();
         public Release GetReleaseById(string id);
         public IEnumerable<Release> GetReleasesByStaffId(string staffId);
     }

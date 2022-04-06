@@ -27,5 +27,17 @@ namespace Pdsl.Api.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet("releases/{staffId}")]
+        public IActionResult GetByStaffId([FromRoute] string staffId)
+        {
+            if (string.IsNullOrWhiteSpace(staffId))
+            {
+                return BadRequest();
+            }
+
+            var releases = appService.GetReleasesByStaffId(staffId);
+            return Ok(releases);
+        }
     }
 }
