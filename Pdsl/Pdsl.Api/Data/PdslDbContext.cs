@@ -75,10 +75,10 @@ namespace Pdsl.Api.Data
                 builder.HasKey(e => e.Id);
                 builder.Property(e => e.Title)
                        .IsRequired()
-                       .HasMaxLength(256);
+                       .HasMaxLength(150);
                 builder.Property(e => e.Abstract)
                        .IsRequired()
-                       .HasMaxLength(256);
+                       .HasMaxLength(500);
                 builder.Property(e => e.HeroImageFilePath)
                        .IsRequired()
                        .HasMaxLength(256);

@@ -39,12 +39,20 @@ namespace Pdsl.Bff.Services
             return await response.Content.ReadFromJsonAsync<ReleaseOutputViewModel>();
         }
 
-        public async Task<ReleaseOutputViewModel?> AddRelease(ReleaseInputViewModel releaseToAdd)
+        public async Task<ReleaseOutputViewModel?> AddRelease(ReleaseToAdd releaseToAdd)
         {
-            var url = "release";
-            var response = await httpClient.PostAsJsonAsync(url, releaseToAdd);
-            
-            return await response.Content.ReadFromJsonAsync<ReleaseOutputViewModel>();
+            try
+            {
+                var url = "release";
+                var response = await httpClient.PostAsJsonAsync(url, releaseToAdd);
+
+                return await response.Content.ReadFromJsonAsync<ReleaseOutputViewModel>();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }
