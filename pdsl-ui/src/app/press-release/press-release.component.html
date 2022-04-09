@@ -27,10 +27,10 @@
                      *ngFor="let pressRelease of pressReleases">
                     <div class="row g-0">
                         <div class="col-md-4 p-3">
-                            <a [href]="pressRelease.documentLink"
+                            <a [href]="pressRelease.filePath"
                                class="stretched-link"
                                target="_blank">
-                                <img [src]="pressRelease.heroImage"
+                                <img [src]="pressRelease.bannerImagePath"
                                      class="img-fluid"
                                      [alt]="pressRelease.title">
                             </a>

@@ -12,8 +12,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-var baseUrl = builder.Configuration.GetSection("PdslServiceBaseUrl");
-builder.Services.AddHttpClient<PdslService>(client => client.BaseAddress = new Uri(baseUrl.Value));
+var baseUrl = builder.Configuration.GetSection("PdslServiceBaseUrl").Value;
+builder.Services.AddHttpClient<PdslService>(client => client.BaseAddress = new Uri(baseUrl));
+
+var pdslCorsPolicy = "AllowFrontEndAngularApp";
+builder.Services.AddCors(options => 
+{
+    var frontEndBaseUri = builder.Configuration.GetSection("PdslFrontEndAngularApp").Value;
+    options.AddPolicy(pdslCorsPolicy, policy =>
+        policy.WithOrigins(frontEndBaseUri)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+        );
+});
 
 
 
@@ -26,11 +37,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors(pdslCorsPolicy);
 
 app.Run();
