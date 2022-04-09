@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -31,6 +32,7 @@ declarations: [
 ],
 imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
 ],
 providers: [Title],

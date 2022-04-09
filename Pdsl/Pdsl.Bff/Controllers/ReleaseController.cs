@@ -42,25 +42,24 @@ namespace Pdsl.Bff.Controllers
         public async Task<IActionResult> AddRelease([FromForm] ReleaseInputViewModel releaseToAdd)
         {
             var bannerImage = releaseToAdd.BannerImage;
-            if(bannerImage is null || bannerImage.Length > 500000)
+            if (!IsAcceptableBannerImageSize(bannerImage))
             {
                 return BadRequest("Banner image is required and it must be at most 500Kb");
             }
-            var bannerImagePath = await Task.Run(() => CreateBannerImageFile(bannerImage));
-
+            var bannerImagePathTask = Task.Run(() => CreateBannerImageFile(bannerImage));
 
             var releaseDocument = releaseToAdd.Document;
-            if (releaseDocument is null || releaseDocument.Length > 5000000)
+            if (!IsAcceptableReleaseDocumentSize(releaseDocument))
             {
                 return BadRequest("A Release document is required and it must be at most 5MB");
             }
-            var releaseFilePath = await Task.Run(() => CreateReleaseFile(releaseDocument));
+            var releaseFilePathTask = Task.Run(() => CreateReleaseFile(releaseDocument));
 
             var response = await pdslService.AddRelease(new ReleaseToAdd
             {
-                BannerImagePath = bannerImagePath,
+                BannerImagePath = await bannerImagePathTask,
                 Description = releaseToAdd.Description,
-                FilePath = releaseFilePath,
+                FilePath = await releaseFilePathTask,
                 ReleaseDate = DateTime.UtcNow,
                 Title = releaseToAdd.Title,
                 UploaderId = releaseToAdd.UploaderId
@@ -69,28 +68,38 @@ namespace Pdsl.Bff.Controllers
             return Ok(response);
         }
 
+        private static bool IsAcceptableReleaseDocumentSize(IFormFile? releaseDocument) => 
+            releaseDocument is not null && releaseDocument.Length < 5000000;
+
+        private static bool IsAcceptableBannerImageSize(IFormFile? bannerImage) => 
+            bannerImage is not null && bannerImage.Length < 500000;
+
         private string CreateReleaseFile(IFormFile releaseDocument)
         {
-            var bannerImageFileName = releaseDocument.FileName;
+            var releaseFolder = "releases";
+            var releaseFileName = $"{DateTime.UtcNow.ToFileTime()}_{releaseDocument.FileName}";
+
             var hostPath = webHostEnvironment.WebRootPath;
-            var releaseFilePath = Path.Combine(hostPath, "releases", $"{DateTime.UtcNow.ToFileTime()}_{bannerImageFileName}");
+            var releaseFilePath = Path.Combine(hostPath, releaseFolder, releaseFileName);
 
             using var stream = System.IO.File.Create(releaseFilePath);
             releaseDocument.CopyTo(stream);
 
-            return releaseFilePath;
+            return $"{releaseFolder}/{releaseFileName}";
         }
 
         private string CreateBannerImageFile(IFormFile bannerImage)
         {
-            var bannerImageFileName = bannerImage.FileName;
+            var imageFolder = "images";
+            var bannerImageFileName = $"{DateTime.UtcNow.ToFileTime()}_{bannerImage.FileName}";
+
             var hostPath = webHostEnvironment.WebRootPath;
-            var bannerImagePath = Path.Combine(hostPath,"images", $"{DateTime.UtcNow.ToFileTime()}_{bannerImageFileName}");
+            var bannerImagePath = Path.Combine(hostPath,imageFolder, bannerImageFileName);
 
             using var stream = System.IO.File.Create(bannerImagePath);
             bannerImage.CopyTo(stream);
 
-            return bannerImagePath;
+            return $"{imageFolder}/{bannerImageFileName}";
         }
     }
 }

@@ -1,7 +1,7 @@
-export interface PressRelease{
+export interface PressRelease {
     title: string;
-    heroImage: string;
-    documentLink: string;
     description: string;
+    bannerImagePath: string;
+    filePath: string;
     releaseDate: Date;
 }
