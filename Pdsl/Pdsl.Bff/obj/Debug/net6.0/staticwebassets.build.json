@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Tn1IWuKk4TmJILpLuhAZzCcSA8rtfTGimG8ehqLBQSo=",
+  "Hash": "yUK8SpAHd9Uu5XNlma/eFehjM4o1QtfR5KjCI/sGD3Q=",
   "Source": "Pdsl.Bff",
   "BasePath": "_content/Pdsl.Bff",
   "Mode": "Default",
@@ -34,6 +34,40 @@
       "OriginalItemSpec": "wwwroot\\images\\132939838035440941_hero.jpg"
     },
     {
+      "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\images\\132939849258578860_hero.jpg",
+      "SourceId": "Pdsl.Bff",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\",
+      "BasePath": "_content/Pdsl.Bff",
+      "RelativePath": "images/132939849258578860_hero.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\132939849258578860_hero.jpg"
+    },
+    {
+      "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\images\\132939850269777219_hero.jpg",
+      "SourceId": "Pdsl.Bff",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\",
+      "BasePath": "_content/Pdsl.Bff",
+      "RelativePath": "images/132939850269777219_hero.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\132939850269777219_hero.jpg"
+    },
+    {
       "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\releases\\132939838035462185_Conclusion of Direct Negotiations.pdf",
       "SourceId": "Pdsl.Bff",
       "SourceType": "Discovered",
@@ -49,6 +83,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\releases\\132939838035462185_Conclusion of Direct Negotiations.pdf"
+    },
+    {
+      "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\releases\\132939849258579020_Conclusion of Direct Negotiations.pdf",
+      "SourceId": "Pdsl.Bff",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\",
+      "BasePath": "_content/Pdsl.Bff",
+      "RelativePath": "releases/132939849258579020_Conclusion of Direct Negotiations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\releases\\132939849258579020_Conclusion of Direct Negotiations.pdf"
+    },
+    {
+      "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\releases\\132939850269777245_Conclusion of Direct Negotiations.pdf",
+      "SourceId": "Pdsl.Bff",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\",
+      "BasePath": "_content/Pdsl.Bff",
+      "RelativePath": "releases/132939850269777245_Conclusion of Direct Negotiations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\releases\\132939850269777245_Conclusion of Direct Negotiations.pdf"
     }
   ]
 }

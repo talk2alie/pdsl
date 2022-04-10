@@ -1,13 +1,83 @@
-<section class="hero">
+<section class="hero mb-5">
     <header class="container">
         <h1 class="pb-2">Press Releases</h1>
     </header>
 </section>
-<section class="bg-light pt-5 pb-5">
+<section class="bg-light pt-5 pb-5"
+         *ngIf="canUploadRelease">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p>
+                <form [formGroup]="pressReleaseForm"
+                     (ngSubmit)="onUploadRelease()">
+                    <div class="mb-3">
+                        <label for="title"
+                               class="form-label">Title</label>
+                        <input type="text"
+                               formControlName="title"
+                               class="form-control"
+                               id="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description"
+                               class="form-label">Description</label>
+                        <textarea class="form-control"
+                                  formControlName="description"
+                                  rows="5"
+                                  id="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bannerImage"
+                               class="form-label">
+                            Title Image (.jpg or .jpeg)
+                        </label>
+                        <input type="file"
+                               #bannerImageInput
+                               formControlName="bannerImage"
+                               accept="image/jpeg, image/jpg"
+                               class="form-control"
+                               (change)="onBannerImageSelection(bannerImageInput.files)"
+                               id="bannerImage">
+                    </div>
+                    <div class="mb-3">
+                        <label for="document"
+                               class="form-label">
+                            Release Document (.pdf)
+                        </label>
+                        <input type="file"
+                               #releaseDocumentInput
+                               formControlName="document"
+                               accept="application/pdf"
+                               class="form-control"
+                               (change)="onReleaseDocumentSelection(releaseDocumentInput.files)"
+                               id="document">
+                    </div>
+                    <div class="mb-3">
+                        <label for="releaseDate"
+                               class="form-label">
+                            Release Date
+                        </label>
+                        <input type="datetime-local"
+                               formControlName="releaseDate"
+                               class="form-control"
+                               id="releaseDate">
+                    </div>
+                    <button type="submit"
+                            [disabled]="!pressReleaseForm.valid"
+                            class="btn btn-primary">
+                            Upload
+                    </button>
+                </form>
+                <hr>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-light pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="float-start">
                     Sort:
                     <button [ngClass]="getSortByDateClass()"
                             (click)="sortByDate()"
@@ -16,9 +86,15 @@
                             (click)="sortByTitle()"
                             class="btn btn-sm">by title</button>
                 </p>
-                <hr>
+                <p class="float-end">
+                    <button (click)="toggleUpload()"
+                            class="btn btn-primary btn-sm">
+                        {{uploadText}}
+                    </button>
+                </p>
             </div>
             <div class="col-md-8 press-releases">
+                <hr>
                 <p *ngIf="pressReleases.length == 0"
                    class="text-info fst-italic">
                     No new press releases available. Please check back later.
@@ -37,12 +113,17 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{pressRelease.title}}</h5>
+                                <h5 class="card-title">
+                                    {{pressRelease.title}}
+                                </h5>
                                 <p class="card-text"
-                                   [innerText]="pressRelease.description"></p>
+                                   [innerText]="pressRelease.description">
+                                </p>
                                 <p class="card-text text-end">
-                                    Released on: <small class="text-muted"
-                                           [innerText]="pressRelease.releaseDate | date: 'MM/dd/yyyy'"></small>
+                                    Released on:
+                                    <small class="text-muted"
+                                           [innerText]="pressRelease.releaseDate | date: 'MM/dd/yyyy'">
+                                    </small>
                                 </p>
                             </div>
                         </div>

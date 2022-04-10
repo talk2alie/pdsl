@@ -60,7 +60,7 @@ namespace Pdsl.Bff.Controllers
                 BannerImagePath = await bannerImagePathTask,
                 Description = releaseToAdd.Description,
                 FilePath = await releaseFilePathTask,
-                ReleaseDate = DateTime.UtcNow,
+                ReleaseDate = releaseToAdd.ReleaseDate.ToUniversalTime(),
                 Title = releaseToAdd.Title,
                 UploaderId = releaseToAdd.UploaderId
             });

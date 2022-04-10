@@ -32,4 +32,8 @@ export class PressReleaseService {
             `${this.baseUrl}${archivedReleases}`
         );
     }
+
+    uploadNewPressRelease(formData: FormData) : Observable<PressRelease> {
+        return this.http.post<PressRelease>(`${this.baseUrl}release`, formData);
+    }
 }
