@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pdsl.Bff.Models;
 using Pdsl.Bff.Services;
@@ -38,6 +39,7 @@ namespace Pdsl.Bff.Controllers
             return Ok(release);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddRelease([FromForm] ReleaseInputViewModel releaseToAdd)
         {
