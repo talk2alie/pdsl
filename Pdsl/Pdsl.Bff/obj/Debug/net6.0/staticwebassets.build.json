@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yUK8SpAHd9Uu5XNlma/eFehjM4o1QtfR5KjCI/sGD3Q=",
+  "Hash": "zRDU1RynO2gY1H6nHHfGA44hwhtH4v4ciA0pz52ly2E=",
   "Source": "Pdsl.Bff",
   "BasePath": "_content/Pdsl.Bff",
   "Mode": "Default",
@@ -68,6 +68,23 @@
       "OriginalItemSpec": "wwwroot\\images\\132939850269777219_hero.jpg"
     },
     {
+      "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\images\\132940931709468074_hero.jpg",
+      "SourceId": "Pdsl.Bff",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\",
+      "BasePath": "_content/Pdsl.Bff",
+      "RelativePath": "images/132940931709468074_hero.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\132940931709468074_hero.jpg"
+    },
+    {
       "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\releases\\132939838035462185_Conclusion of Direct Negotiations.pdf",
       "SourceId": "Pdsl.Bff",
       "SourceType": "Discovered",
@@ -117,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\releases\\132939850269777245_Conclusion of Direct Negotiations.pdf"
+    },
+    {
+      "Identity": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\releases\\132940931787883345_Conclusion of Direct Negotiations.pdf",
+      "SourceId": "Pdsl.Bff",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Repos\\pdsl\\Pdsl\\Pdsl.Bff\\wwwroot\\",
+      "BasePath": "_content/Pdsl.Bff",
+      "RelativePath": "releases/132940931787883345_Conclusion of Direct Negotiations.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\releases\\132940931787883345_Conclusion of Direct Negotiations.pdf"
     }
   ]
 }
