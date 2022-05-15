@@ -15,11 +15,8 @@ export class PressReleaseComponent implements OnInit {
     constructor(private pressReleasesService: PressReleaseService) {}
 
     ngOnInit(): void {
-        this.pressReleasesService.getMostRecentPressReleases()
-            .subscribe(pressReleases => {
-                this.pressReleases = pressReleases;
-                this.sort();
-            });
+        this.pressReleases = this.pressReleasesService.getMostRecentPressReleases();
+        this.sort();
     }
 
     getSortByDateClass(): string {
@@ -50,7 +47,7 @@ export class PressReleaseComponent implements OnInit {
                 this.pressReleases.sort((a: PressRelease, b: PressRelease) => {
                     if(a.releaseDate < b.releaseDate) {
                         return 1;
-                    } else if(a.releaseDate < b.releaseDate) {
+                    } else if(a.releaseDate > b.releaseDate) {
                         return -1;
                     } else {
                         return 0;
