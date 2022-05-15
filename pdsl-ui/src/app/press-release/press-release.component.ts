@@ -53,6 +53,8 @@ export class PressReleaseComponent implements OnInit {
             .subscribe((pressReleases) => {
                 this.pressReleases = pressReleases;
                 this.sort();
+            }, error => {
+                console.log(error);
             });
     }
 
