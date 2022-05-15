@@ -21,10 +21,12 @@ builder.Services.AddAuthentication(options =>
 .AddOpenIdConnect(oidc.AuthenticationScheme, options =>
 {
     options.SignInScheme = cookie.AuthenticationScheme; ;
-    options.Authority = "https://localhost:5001";
+    options.Authority = "https://localhost:5001/";
     options.ClientId = "102b0e90-a929-4c55-b112-8541b5be76e4";
+    options.ClientSecret = "3f8f6707-8a81-488d-92a3-a96205c6b754";
     options.ResponseType = "code";
-    options.ClientSecret = "3f8f6707-8a81-488d-92a3-a96205c6b754".Sha256();
+    options.SaveTokens = true;
+    options.GetClaimsFromUserInfoEndpoint = true;
 });
 
 
@@ -42,7 +44,7 @@ builder.Services.AddCors(options =>
 {
     var frontEndBaseUri = builder.Configuration.GetSection("PdslFrontEndAngularApp").Value;
     options.AddPolicy(pdslCorsPolicy, policy =>
-        policy.WithOrigins(frontEndBaseUri)
+        policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod()
         );
@@ -57,13 +59,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(pdslCorsPolicy);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseAuthentication();
+// app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors(pdslCorsPolicy);
 
 app.Run();
