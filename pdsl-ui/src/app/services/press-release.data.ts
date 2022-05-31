@@ -19,4 +19,12 @@ export const pressReleases: PressRelease[] = [
             '/assets/press-releases/New-Reconnaissance-Permit-Agreement.pdf',
         releaseDate: new Date('2022-05-10'),
     },
+    {
+        title: 'Innoson Oil and Gas Ltd on the Cusp of Huge Gas Discovery in the Sierra Leone Basin-Next Steps',
+        description:
+            'The public is hereby informed that the Petroleum Directorate has received from Innoson Oil and Gas SL Ltd., a preliminary report on the outcome of a recently concluded independent, third-party evaluation of its offshore concession in Sierra Leone.',
+        bannerImagePath: '/assets/press-releases/hero.jpg',
+        filePath: '/assets/press-releases/Press-Release-IOG-Findings.pdf',
+        releaseDate: new Date('2022-05-28'),
+    }
 ];
