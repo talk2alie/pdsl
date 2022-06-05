@@ -7,34 +7,56 @@ namespace Pdsl.Api.PressReleases
     {
         private Guid id;
         public Guid Id 
-        { get { return id; } 
-          set
-            {
-                Guard.Against.InvalidPressReleaseId(value, nameof(id));
-                id = value;
-            }
+        { 
+            get { return id; }
+            set { id = Guard.Against.InvalidPressReleaseId(value, nameof(Id)); }
         }
 
         private string title;
         public string Title
         {
             get { return title; }
-
+            set { title = Guard.Against.InvalidPressReleaseTitle(value, nameof(Title)); }
         }
 
-        public string Description { get; set; }
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set { description = Guard.Against.InvalidPressReleaseDescription(value, nameof(Description));}
+        }
 
-        public string DocumentFilePath { get; set; }
+        private string documentFilePath;
+        public string DocumentFilePath
+        {
+            get { return documentFilePath; }
+            set { documentFilePath = Guard.Against.NullOrWhiteSpace(value, nameof(DocumentFilePath)); }
+        }
 
-        public string BannerImageFilePath { get; set; }
+        private string bannerImageFilePath;
+        public string BannerImageFilePath
+        {
+            get { return bannerImageFilePath; }
+            set { bannerImageFilePath = Guard.Against.NullOrWhiteSpace(value, nameof(BannerImageFilePath)); }
+        }
 
-        public DateTime ReleaseDateTimeUtc { get; set; }
+        private DateTime releaseDateTimeUtc;
+        public DateTime ReleaseDateTimeUtc
+        {
+            get { return releaseDateTimeUtc; }
+            set { releaseDateTimeUtc = Guard.Against.InvalidPressReleaseReleaseDate(value, nameof(ReleaseDateTimeUtc)); }
+        }
 
-        public string UploaderId { get; set; }
+        private string uploaderId;
+        public string UploaderId
+        {
+            get { return uploaderId; }
+            set { uploaderId = Guard.Against.NullOrWhiteSpace(value, nameof(UploaderId)); }
+        }
 
-        public DateTime CreationDateTimeUtc { get; set; }
+        public DateTime CreationDateTimeUtc { get; private set; }
 
-        public DateTime LastUpdatedDateTimeUtc { get; set; }
+        public DateTime LastUpdatedDateTimeUtc { get; private set; }
 
         public PressRelease(Guid id
             , string title
@@ -44,15 +66,31 @@ namespace Pdsl.Api.PressReleases
             , DateTime releaseDate
             , string uploaderId)
         {
-            Id = id;
-            Title = title;
-            Description = description;
-            DocumentFilePath = documentFilePath;
-            BannerImageFilePath = bannerImageFilePath;
-            ReleaseDateTimeUtc = releaseDate.ToUniversalTime();
-            UploaderId = uploaderId;
+            this.id = Guard.Against.InvalidPressReleaseId(id, nameof(Id));
+            this.title = Guard.Against.InvalidPressReleaseTitle(title, nameof(Title));
+            this.description = Guard.Against.InvalidPressReleaseDescription(description, nameof(Description));
+            this.documentFilePath = Guard.Against.NullOrWhiteSpace(documentFilePath, nameof(DocumentFilePath)); ;
+            this.bannerImageFilePath = Guard.Against.NullOrWhiteSpace(bannerImageFilePath, nameof(BannerImageFilePath)); ;
+            this.uploaderId = Guard.Against.NullOrWhiteSpace(uploaderId, nameof(UploaderId));
+            this.releaseDateTimeUtc = Guard.Against.InvalidPressReleaseReleaseDate(releaseDate, nameof(ReleaseDateTimeUtc));
             CreationDateTimeUtc = DateTime.UtcNow;
             LastUpdatedDateTimeUtc = DateTime.UtcNow;
+        }
+
+        public PressRelease(string title
+            , string description
+            , string documentFilePath
+            , string bannerImageFilePath
+            , DateTime releaseDate
+            , string uploaderId) : this(Guid.NewGuid()
+                , title
+                , description
+                , documentFilePath
+                , bannerImageFilePath
+                , releaseDate
+                , uploaderId)
+        {
+
         }
     }
 }
