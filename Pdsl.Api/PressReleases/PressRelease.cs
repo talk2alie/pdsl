@@ -58,6 +58,10 @@ namespace Pdsl.Api.PressReleases
 
         public DateTime LastUpdatedDateTimeUtc { get; private set; }
 
+        public string? DeactivatedById { get; set; }
+
+        public DateTime? DeactivationDateTimeUtc { get; set; }
+
         public PressRelease(Guid id
             , string title
             , string description
