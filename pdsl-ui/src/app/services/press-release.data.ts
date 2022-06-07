@@ -26,5 +26,13 @@ export const pressReleases: PressRelease[] = [
         bannerImagePath: '/assets/press-releases/hero.jpg',
         filePath: '/assets/press-releases/Press-Release-IOG-Findings.pdf',
         releaseDate: new Date('2022-05-28'),
-    }
+    },
+    {
+        title: '(External): Innoson Oil & Gas Ltd., on the cusp of a huge 8 trillion cubic feet (TCF) gas discovery in the Sierra Leonean basin',
+        description:
+            'With estimated recoverable resources of 8.2 TCF and 234 MMbbl of gas and condensate respectively, the Ryder Scott Company, has confirmed Innoson Oil & Gas Ltd.’s own findings from a rigorous hydrocarbon exploration campaign it’s been engaged in, in the Sierra Leonean basin since 2020.',
+        bannerImagePath: '/assets/press-releases/hero.jpg',
+        filePath: '/assets/press-releases/IOG-Press-Release.pdf',
+        releaseDate: new Date('2022-05-28'),
+    },
 ];
