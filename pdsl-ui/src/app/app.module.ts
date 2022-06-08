@@ -15,6 +15,7 @@ import { routes } from './routes';
 import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { PressReleaseComponent } from './press-release/press-release.component';
+import { LicensingComponent } from './licensing/licensing.component';
 
 @NgModule({
 declarations: [
@@ -28,7 +29,8 @@ declarations: [
     PageNotFoundComponent,
     StaffDetailComponent,
     ApplicationsComponent,
-    PressReleaseComponent
+    PressReleaseComponent,
+    LicensingComponent
 ],
 imports: [
     BrowserModule,
