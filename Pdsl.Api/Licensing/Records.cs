@@ -1,12 +1,14 @@
 ﻿namespace Pdsl.Api.Licensing
 {
-    public record Name(string Text)
+    public record Data(string Text)
     {
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Text!;
         }
     }
+
+    public record Name(string Text) : Data(Text);
 
     public record Organization(string Name)
     {
@@ -16,29 +18,11 @@
         }
     }
 
-    public record Email(string Text)
-    {
-        public override string ToString()
-        {
-            return Text!;
-        }
-    }
+    public record Email(string Text) : Data(Text);
 
-    public record Secret(string Text)
-    {
-        public override string ToString()
-        {
-            return Text!;
-        }
-    }
+    public record Secret(string Text) : Data(Text);
 
-    public record Code(string Text)
-    {
-        public override string ToString()
-        {
-            return Text!;
-        }
-    }
+    public record Code(string Text) : Data(Text);
 
     public record CryptoCode(Secret Secret, Code Code);
 }
