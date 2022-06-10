@@ -19,6 +19,7 @@ namespace Pdsl.Api.Controllers
         }
 
         [HttpPost]
+        [Route("send")]
         public IActionResult SendCode([FromBody] UserViewModel userModel)
         {
             if(!ModelState.IsValid)
@@ -31,10 +32,36 @@ namespace Pdsl.Api.Controllers
                 new UserName(userModel.FullName)
                 , new Organization(userModel.Organization)
                 , new Email(userModel.Email)
-                , new Secret($"{cryptoCode.Secret}")
+                , new Secret(cryptoCode.Secret.Text)
             );
 
             return Ok(cryptoCode.Code);
+        }
+
+        [HttpPost]
+        [Route("verify")]
+        public IActionResult VerifyCode([FromBody] VerifyCodeUserViewModel userModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var secret = authenticator.GenerateCode().Secret.Text;
+            var user = new User
+            (
+                new UserName(userModel.FullName),
+                new Organization(userModel.Organization),
+                new Email(userModel.Email),
+                new Secret(secret)
+            );
+            var codeIsValid = authenticator.UserCodeIsValid(user, new CryptoCode(new Secret(secret), new Code(userModel.Code)));
+            if(codeIsValid)
+            {
+                user.IsVerified = codeIsValid;
+                return Ok(codeIsValid);
+            }
+
+            return BadRequest("Code is invalid");
         }
     }
 }

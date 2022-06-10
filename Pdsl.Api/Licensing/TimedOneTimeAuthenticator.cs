@@ -8,7 +8,7 @@ namespace Pdsl.Api.Licensing
     {
         public CryptoCode GenerateCode()
         {
-            var secret = GenerateSecret();
+            var secret = "pqrstuvwxyzABCDE"; // GenerateSecret();
 
             var authenticator = new TimeAuthenticator();
             var code = authenticator.GetCode(secret);
@@ -40,7 +40,18 @@ namespace Pdsl.Api.Licensing
         public bool UserCodeIsValid(User user, CryptoCode code)
         {
             var authenticator = new TimeAuthenticator();
-            return authenticator.CheckCode($"{code.Secret}", $"{code.Code}", user);
+
+            if(user.Secret.Text is null)
+            {
+                return false;
+            }
+
+            if(code.Code.Text is null)
+            {
+                return false;
+            }
+
+            return authenticator.CheckCode(user.Secret.Text, code.Code.Text, user);
         }
     }
 }
