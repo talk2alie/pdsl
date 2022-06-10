@@ -27,4 +27,6 @@
     public record CryptoCode(Secret Secret, Code Code);
 
     public record FindVisitorModel(Name Name, Organization Organization, Email Email);
+
+    public record Visit(Activity Activity, DateTime UtcDateTime);
 }

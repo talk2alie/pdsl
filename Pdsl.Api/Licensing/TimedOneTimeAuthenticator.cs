@@ -13,7 +13,7 @@ namespace Pdsl.Api.Licensing
 
         public CryptoCode GenerateCode(Secret secret)
         {
-            if(secret is null)
+            if (secret is null)
             {
                 secret = new Secret(GenerateSecret());
             }
@@ -47,12 +47,12 @@ namespace Pdsl.Api.Licensing
 
         public bool UserCodeIsValid(Visitor user, CryptoCode code)
         {
-            if(user.Secret.Text is null)
+            if (user.Secret.Text is null)
             {
                 return false;
             }
 
-            if(code.Code.Text is null)
+            if (code.Code.Text is null)
             {
                 return false;
             }

@@ -5,7 +5,7 @@ namespace Pdsl.Api.Data
 {
     public class PdslDbContext : DbContext
     {
-        public DbSet<Visitor>? Visitors { get; set; }
+        public DbSet<Visitor> Visitors { get; set; }
 
         public PdslDbContext(DbContextOptions options) : base(options)
         {
@@ -15,7 +15,7 @@ namespace Pdsl.Api.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured)
             {
                 var connectionString = "Server=MAP-PC\\Dev110;Database=PDSL;Trusted_Connection=True;";
                 optionsBuilder.UseSqlServer(connectionString);
@@ -70,16 +70,27 @@ namespace Pdsl.Api.Data
                 )
                  .HasMaxLength(5);
 
-                e.Property(x => x.Visits)
-                 .HasField("visits");
+                e.Property(x => x.CreationUtcDateTime)
+                 .HasDefaultValueSql("GETUTCDATE()");
+
+                e.Property(x => x.LastUpdatedUtcDateTime)
+                 .HasDefaultValueSql("GETUTCDATE()");
+
+                //e.Property(x => x.Visits)
+                //.HasField("_visits")
+                //.UsePropertyAccessMode(PropertyAccessMode.PreferField);
+
                 e.OwnsMany(x => x.Visits)
+                 .ToTable(nameof(Visitor.Visits))
                  .Property(x => x.UtcDateTime)
-                 .HasConversion(
-                    value => value.ToString(),
-                    value => DateTime.Parse(value)
-                 );
+                 .IsRequired()
+                 .HasMaxLength(55)
+                 .HasDefaultValueSql("GETUTCDATE()");
+
                 e.OwnsMany(x => x.Visits)
                  .Property(x => x.Activity)
+                 .IsRequired()
+                 .HasMaxLength(55)
                  .HasConversion(
                     value => value.ToString(),
                     value => (Activity)Enum.Parse(typeof(Activity), value)

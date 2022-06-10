@@ -13,7 +13,7 @@ namespace Pdsl.Api.Data
 
         public void Add(Visitor visitor)
         {
-            
+
             context.Visitors?.Add(visitor);
         }
 
@@ -24,8 +24,8 @@ namespace Pdsl.Api.Data
 
         public Visitor? FindByValue(FindVisitorModel visitor)
         {
-            return context.Visitors?.SingleOrDefault(v => 
-             v.Name == visitor.Name 
+            return context.Visitors?.SingleOrDefault(v =>
+             v.Name == visitor.Name
              && v.Organization == visitor.Organization
              && v.Email == visitor.Email);
         }

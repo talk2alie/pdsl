@@ -24,9 +24,9 @@ namespace Pdsl.Api.Controllers
 
         [HttpPost]
         [Route("send")]
-        public IActionResult SendCode([FromBody] VisitorViewModel visitorModel)
+        public IActionResult SendCode([FromBody] SendCodeVisitorViewModel visitorModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -34,16 +34,26 @@ namespace Pdsl.Api.Controllers
             CryptoCode cryptoCode;
 
             var visitor = FindVisitor(visitorModel);
-            if(visitor is not null)
+            if (visitor is not null)
             {
-                if(visitor.IsVerified)
+                if (visitor.IsVerified)
                 {
-                    return Ok(visitor);
+                    visitor.Add(new Visit(Activity.Browse, DateTime.UtcNow));
+                    if (visitorVerificationRepository.CommitChanges())
+                    {
+                        return Ok(visitor);
+                    }
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
                 }
                 else
                 {
                     cryptoCode = authenticator.GenerateCode(visitor.Secret);
-                    return Ok(cryptoCode.Code);
+                    visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
+                    if (visitorVerificationRepository.CommitChanges())
+                    {
+                        return Ok(cryptoCode.Code);
+                    }
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
                 }
             }
 
@@ -56,41 +66,43 @@ namespace Pdsl.Api.Controllers
                 , new Email(visitorModel.Email!)
                 , new Secret($"{cryptoCode.Secret}")
             );
+            visitor.Add(new Visit(Activity.Register, DateTime.UtcNow));
             visitorVerificationRepository.Add(visitor);
-            if(visitorVerificationRepository.CommitChanges())
+            if (visitorVerificationRepository.CommitChanges())
             {
                 return Ok(cryptoCode.Code);
             }
 
-            return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor's secret");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor registration");
         }
 
         [HttpPost]
         [Route("verify")]
         public IActionResult VerifyCode([FromBody] VerifyCodeVisitorViewModel userModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             var visitor = FindVisitor(userModel);
-            if(visitor is null)
+            if (visitor is null)
             {
                 return NotFound();
             }
 
-            var codeIsValid = authenticator.UserCodeIsValid(visitor, 
+            var codeIsValid = authenticator.UserCodeIsValid(visitor,
                 new CryptoCode(visitor.Secret, new Code(userModel.Code!)));
             if (codeIsValid)
             {
                 visitor.IsVerified = true;
                 visitor.Secret = new Secret(string.Empty);
-                if(visitorVerificationRepository.CommitChanges())
+                visitor.Add(new Visit(Activity.Verify, DateTime.UtcNow));
+                if (visitorVerificationRepository.CommitChanges())
                 {
                     return Ok(visitor);
-                } 
-                
+                }
+
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not update visitor's verification status");
             }
 
