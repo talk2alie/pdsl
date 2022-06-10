@@ -18,7 +18,7 @@ namespace Pdsl.Api.Licensing
 
         private static string GenerateSecret()
         {
-            var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ234567".ToCharArray();
+            var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
 
             var cryptoSecretGenerator = RandomNumberGenerator.Create();
             var bytes = new byte[64];
