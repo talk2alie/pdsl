@@ -1,4 +1,5 @@
-﻿namespace Pdsl.Api.Licensing
+﻿using static System.Guid;
+namespace Pdsl.Api.Licensing
 {
     public class Visitor
     {
@@ -14,8 +15,13 @@
 
         public bool IsVerified { get; set; }
 
-        public Visitor(Name name, Organization organization, Email email, Secret secret)
+        public Visitor(Guid id, Name name, Organization organization, Email email, Secret secret)
         {
+            if(id == Empty)
+            {
+                id = NewGuid();
+            }
+            Id = id;
             Name = name;
             Organization = organization;
             Email = email;
