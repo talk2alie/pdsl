@@ -37,10 +37,8 @@ namespace Pdsl.Api.Licensing
             return secret.ToString();
         }
 
-        public bool UserCodeIsValid(User user, CryptoCode code)
+        public bool UserCodeIsValid(Visitor user, CryptoCode code)
         {
-            var authenticator = new TimeAuthenticator();
-
             if(user.Secret.Text is null)
             {
                 return false;
@@ -51,7 +49,8 @@ namespace Pdsl.Api.Licensing
                 return false;
             }
 
-            return authenticator.CheckCode(user.Secret.Text, code.Code.Text, user);
+            var authenticator = new TimeAuthenticator();
+            return authenticator.CheckCode($"{user.Secret}", $"{code.Code}", user);
         }
     }
 }

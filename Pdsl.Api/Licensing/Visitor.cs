@@ -1,10 +1,10 @@
 ﻿namespace Pdsl.Api.Licensing
 {
-    public class User
+    public class Visitor
     {
         public Guid Id { get; set; }
 
-        public UserName Name { get; set; }
+        public Name Name { get; set; }
 
         public Organization Organization { get; set; }
 
@@ -14,7 +14,7 @@
 
         public bool IsVerified { get; set; }
 
-        public User(UserName name, Organization organization, Email email, Secret secret)
+        public Visitor(Name name, Organization organization, Email email, Secret secret)
         {
             Name = name;
             Organization = organization;

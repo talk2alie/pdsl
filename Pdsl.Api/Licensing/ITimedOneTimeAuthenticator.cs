@@ -4,6 +4,6 @@
     {
         CryptoCode GenerateCode();
 
-        bool UserCodeIsValid(User user, CryptoCode code);
+        bool UserCodeIsValid(Visitor user, CryptoCode code);
     }
 }

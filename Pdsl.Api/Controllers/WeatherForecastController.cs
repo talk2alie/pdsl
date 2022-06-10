@@ -28,7 +28,7 @@ namespace Pdsl.Api.Controllers
         {
             var code = _codeGenerator.GenerateCode();
 
-            var user = new User(new UserName("Mo"), new Organization("UN"), new Email("talk2alie@outlook.com"), code.Secret);
+            var user = new Visitor(new Name("Mo"), new Organization("UN"), new Email("talk2alie@outlook.com"), code.Secret);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

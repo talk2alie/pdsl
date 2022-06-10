@@ -28,11 +28,11 @@ namespace Pdsl.Api.Controllers
             }
 
             var cryptoCode = authenticator.GenerateCode();
-            var user = new User(
-                new UserName(userModel.FullName)
-                , new Organization(userModel.Organization)
-                , new Email(userModel.Email)
-                , new Secret(cryptoCode.Secret.Text)
+            var user = new Visitor(
+                new Name(userModel.FullName!)
+                , new Organization(userModel.Organization!)
+                , new Email(userModel.Email!)
+                , new Secret($"{cryptoCode.Secret}")
             );
 
             return Ok(cryptoCode.Code);
@@ -46,15 +46,15 @@ namespace Pdsl.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var secret = authenticator.GenerateCode().Secret.Text;
-            var user = new User
+            var secret = $"{authenticator.GenerateCode().Secret}";
+            var user = new Visitor
             (
-                new UserName(userModel.FullName),
-                new Organization(userModel.Organization),
-                new Email(userModel.Email),
+                new Name(userModel.FullName!),
+                new Organization(userModel.Organization!),
+                new Email(userModel.Email!),
                 new Secret(secret)
             );
-            var codeIsValid = authenticator.UserCodeIsValid(user, new CryptoCode(new Secret(secret), new Code(userModel.Code)));
+            var codeIsValid = authenticator.UserCodeIsValid(user, new CryptoCode(new Secret(secret), new Code(userModel.Code!)));
             if(codeIsValid)
             {
                 user.IsVerified = codeIsValid;

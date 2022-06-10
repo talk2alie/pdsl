@@ -4,9 +4,9 @@ namespace Pdsl.Api.Data
 {
     public interface IUserVerificationRepository
     {
-        void Add(User user);
+        void Add(Visitor user);
 
-        User Get(string id);
+        Visitor Get(string id);
 
         bool CommitChanges();
     }
