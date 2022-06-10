@@ -1,6 +1,4 @@
-﻿using Pdsl.Api.Licensing;
-
-namespace Pdsl.Api.Data
+﻿namespace Pdsl.Api.Licensing
 {
     public interface IUserVerificationRepository
     {
