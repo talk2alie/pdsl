@@ -1,4 +1,5 @@
-﻿using static System.Guid;
+﻿using System.Collections.ObjectModel;
+using static System.Guid;
 namespace Pdsl.Api.Licensing
 {
     public class Visitor
@@ -15,6 +16,13 @@ namespace Pdsl.Api.Licensing
 
         public bool IsVerified { get; set; }
 
+        public DateTime CreationUtcDateTime { get; set; }
+
+        public DateTime LastUpdatedUtcDateTime { get; private set; }
+
+        private readonly List<Visit> visits;
+        public ReadOnlyCollection<Visit> Visits => new(visits);
+
         public Visitor(Guid id, Name name, Organization organization, Email email, Secret secret)
         {
             if(id == Empty)
@@ -26,6 +34,10 @@ namespace Pdsl.Api.Licensing
             Organization = organization;
             Email = email;
             Secret = secret;
+            LastUpdatedUtcDateTime = DateTime.UtcNow;
+            visits = new List<Visit>();
         }
+
+        public void Add(Visit visit) => visits.Add(visit);
     }
 }

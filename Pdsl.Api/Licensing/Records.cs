@@ -25,4 +25,6 @@
     public record Code(string Text) : Data(Text);
 
     public record CryptoCode(Secret Secret, Code Code);
+
+    public record FindVisitorModel(Name Name, Organization Organization, Email Email);
 }

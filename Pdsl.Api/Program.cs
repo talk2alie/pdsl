@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Pdsl.Api.Data;
 using Pdsl.Api.Licensing;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITimedOneTimeAuthenticator, TimedOneTimeAuthenticator>();
+builder.Services.AddTransient<IVisitorVerificationRepository, VisitorVerificationRepository>();
+
+var connectionString = builder.Configuration.GetConnectionString("PdslDbContext");
+builder.Services.AddDbContext<PdslDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 

@@ -8,17 +8,25 @@ namespace Pdsl.Api.Licensing
     {
         public CryptoCode GenerateCode()
         {
-            var secret = "pqrstuvwxyzABCDE"; // GenerateSecret();
+            return GenerateCode(null!);
+        }
+
+        public CryptoCode GenerateCode(Secret secret)
+        {
+            if(secret is null)
+            {
+                secret = new Secret(GenerateSecret());
+            }
 
             var authenticator = new TimeAuthenticator();
-            var code = authenticator.GetCode(secret);
+            var code = authenticator.GetCode($"{secret}");
 
-            return new CryptoCode(new Secret(secret), new Code(code));
+            return new CryptoCode(secret, new Code(code));
         }
 
         private static string GenerateSecret()
         {
-            var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+            var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ234567".ToCharArray();
 
             var cryptoSecretGenerator = RandomNumberGenerator.Create();
             var bytes = new byte[64];

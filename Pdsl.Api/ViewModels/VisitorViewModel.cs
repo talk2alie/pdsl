@@ -2,7 +2,7 @@
 
 namespace Pdsl.Api.ViewModels
 {
-    public class UserViewModel
+    public class VisitorViewModel
     {
         [Required, MaxLength(255)]
         public string? FullName { get; set; }
