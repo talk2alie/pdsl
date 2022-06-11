@@ -18,101 +18,11 @@
                     </p>
                     <div class="card">
                         <div class="card-body">
-                            <div *ngIf="!identityFormSubmitted"
-                                 id="identitySubmitssionForm">
-                                <form autocomplete="off"
-                                      novalidate
-                                      [formGroup]="userVerificationForm"
-                                      (ngSubmit)="onUserIdentityFormSubmit()">
-                                    <div class="row">
-                                        <div class="col-md-4 text-start mb-3">
-                                            <label for="fullName"
-                                                   class="form-label">Full Name</label>
-                                            <input type="text"
-                                                   formControlName="fullName"
-                                                   class="form-control"
-                                                   id="fullName"
-                                                   title="Please enter your full name"
-                                                   required
-                                                   placeholder="Please enter your full name"
-                                                   name="fullName">
-                                            <p class="text-danger fs-6 fst-italic" *ngIf="showControlErrors(fullName)">
-                                                <span *ngIf="fullName.errors?.required">*Your full name is required</span><br>
-                                                <span *ngIf="fullName.errors?.maxlength">*Your full name must be at most 255 characters</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4 text-start mb-3">
-                                            <label for="organization"
-                                                   class="form-label">Organization</label>
-                                            <input type="text"
-                                                   formControlName="organization"
-                                                   class="form-control"
-                                                   id="organization"
-                                                   title="Please enter your organization's name"
-                                                   required
-                                                   placeholder="Please enter your organization's name"
-                                                   name="organization">
-                                            <p class="text-danger fs-6 fst-italic" *ngIf="showControlErrors(organization)">
-                                                <span *ngIf="organization.errors?.required">*Your organizaion's name is required</span><br>
-                                                <span *ngIf="organization.errors?.maxlength">*Your organizaion's name must be at most 255 characters</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4 text-start mb-3">
-                                            <label for="emailAddress"
-                                                   class="form-label">Email</label>
-                                            <input type="text"
-                                                   formControlName="emailAddress"
-                                                   class="form-control"
-                                                   id="emailAddress"
-                                                   title="Please enter your email address at your organization"
-                                                   required
-                                                   placeholder="Please enter your email address"
-                                                   name="emailAddress">
-                                            <p class="text-danger fs-6 fst-italic" *ngIf="showControlErrors(emailAddress)">
-                                                <span *ngIf="emailAddress.errors?.required">*Your email address at your organizaion is required</span><br>
-                                                <span *ngIf="emailAddress.errors?.email">*Your email address at your organizaion must be in a valid email format</span>
-                                            </p>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 text-start mb-3">
-                                                <button type="submit"
-                                                        class="btn btn-primary"
-                                                        [disabled]="userVerificationForm.invalid">Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div *ngIf="identityFormSubmitted"
-                                 id="identityVerificationForm">
-                                <form class="d-flex justify-content-center"
-                                      autocomplete="off"
-                                      novalidate
-                                      [formGroup]="verificationCodeForm"
-                                      (ngSubmit)="onVerificationCodeSubmit()">
-                                    <div>
-                                        <div class="form-group">
-                                            <label for="verificationCode"
-                                                   class="form-label">Verification Code</label>
-                                            <input type="text"
-                                                   maxlength="5"
-                                                   required
-                                                   name="verificationCode"
-                                                   formControlName="verificationCode"
-                                                   id="verificationCode"
-                                                   class="form-control">
-                                            <p class="text-danger fs-6 fst-italic"
-                                               *ngIf="showControlErrors(verificationCode)">
-                                                <span *ngIf="verificationCode.errors?.required">*Verification Code is required</span><br>
-                                                <span *ngIf="verificationCode.errors?.maxlength">*Verification Code must be 5 characters long</span>
-                                            </p>
-                                            <button type="submit"
-                                                    class="btn btn-primary mt-3"
-                                                    [disabled]="verificationCodeForm.invalid">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <pdsl-identity-submission-form *ngIf="!identityFormSubmitted"
+                                                           (identityFormSubmitted)="onIdentitySubmitted($event)"></pdsl-identity-submission-form>
+                            <pdsl-code-verification-form (identityVerified)="onIdentityVerified($event)"
+                                                         [identityFormSubmitted]="identityFormSubmitted">
+                            </pdsl-code-verification-form>
                         </div>
                     </div>
                 </div>
