@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Pdsl.Api.Licensing;
 using Pdsl.Api.ViewModels;
 using static System.Guid;
@@ -9,14 +10,17 @@ namespace Pdsl.Api.Controllers
     [Route("[controller]")]
     public class VisitorVerificationController : ControllerBase
     {
+        private readonly IMapper mapper;
         private readonly IVisitorVerificationRepository visitorVerificationRepository;
         private readonly ITimedOneTimeAuthenticator authenticator;
         private readonly ILogger<VisitorVerificationController> logger;
 
-        public VisitorVerificationController(IVisitorVerificationRepository userVerificationRepository
+        public VisitorVerificationController(IMapper mapper
+            , IVisitorVerificationRepository userVerificationRepository
             , ITimedOneTimeAuthenticator authenticator
             , ILogger<VisitorVerificationController> logger)
         {
+            this.mapper = mapper;
             this.visitorVerificationRepository = userVerificationRepository;
             this.authenticator = authenticator;
             this.logger = logger;
@@ -41,7 +45,8 @@ namespace Pdsl.Api.Controllers
                     visitor.Add(new Visit(Activity.Browse, DateTime.UtcNow));
                     if (visitorVerificationRepository.CommitChanges())
                     {
-                        return Ok(visitor);
+                        var visitorOutputModel = mapper.Map<VisitorOutputViewModel>(visitor);
+                        return Ok(visitorOutputModel);
                     }
                     return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
                 }
@@ -51,6 +56,7 @@ namespace Pdsl.Api.Controllers
                     visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
                     if (visitorVerificationRepository.CommitChanges())
                     {
+                        // Send email and return status
                         return Ok(cryptoCode.Code);
                     }
                     return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
@@ -70,6 +76,7 @@ namespace Pdsl.Api.Controllers
             visitorVerificationRepository.Add(visitor);
             if (visitorVerificationRepository.CommitChanges())
             {
+                // Send email and return status
                 return Ok(cryptoCode.Code);
             }
 
@@ -100,7 +107,8 @@ namespace Pdsl.Api.Controllers
                 visitor.Add(new Visit(Activity.Verify, DateTime.UtcNow));
                 if (visitorVerificationRepository.CommitChanges())
                 {
-                    return Ok(visitor);
+                    var visitorOutputModel = mapper.Map<VisitorOutputViewModel>(visitor);
+                    return Ok(visitorOutputModel);
                 }
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not update visitor's verification status");

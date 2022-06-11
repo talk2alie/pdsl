@@ -76,10 +76,6 @@ namespace Pdsl.Api.Data
                 e.Property(x => x.LastUpdatedUtcDateTime)
                  .HasDefaultValueSql("GETUTCDATE()");
 
-                //e.Property(x => x.Visits)
-                //.HasField("_visits")
-                //.UsePropertyAccessMode(PropertyAccessMode.PreferField);
-
                 e.OwnsMany(x => x.Visits)
                  .ToTable(nameof(Visitor.Visits))
                  .Property(x => x.UtcDateTime)

@@ -15,6 +15,7 @@ builder.Services.AddTransient<IVisitorVerificationRepository, VisitorVerificatio
 
 var connectionString = builder.Configuration.GetConnectionString("PdslDbContext");
 builder.Services.AddDbContext<PdslDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
