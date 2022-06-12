@@ -36,7 +36,6 @@ export class StaffDetailComponent implements OnInit {
                 next: staff => this.staff = staff,
                 error: error => this.errorMessage = error
             });
-
         this.titleService.setTitle(`PDSL | About ${this.staff.name}`);
     }
 }

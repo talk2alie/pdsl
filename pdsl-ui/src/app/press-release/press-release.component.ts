@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { PressRelease } from '../services/press-release.model';
 import { PressReleaseService } from '../services/press-release.service';
 
@@ -12,7 +13,9 @@ export class PressReleaseComponent implements OnInit {
     isSortByTitle: boolean = false;
     pressReleases: PressRelease[] = [];
 
-    constructor(private pressReleasesService: PressReleaseService) {}
+    constructor(private pressReleasesService: PressReleaseService, private titleService: Title) {
+        this.titleService.setTitle('PDSL | Press Release');
+    }
 
     ngOnInit(): void {
         this.pressReleases = this.pressReleasesService.getMostRecentPressReleases();

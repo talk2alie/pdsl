@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { subscribeOn } from 'rxjs/operators';
 
 @Component({
@@ -11,7 +12,9 @@ export class LicensingComponent implements OnInit {
     identityFormSubmitted = false;
     identityVerified = false;
 
-    constructor() {}
+    constructor(private titleService: Title) {
+        this.titleService.setTitle('PDSL | Licensing');
+    }
 
     ngOnInit(): void {}
 
