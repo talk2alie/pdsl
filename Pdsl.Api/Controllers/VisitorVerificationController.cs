@@ -28,7 +28,7 @@ namespace Pdsl.Api.Controllers
 
         [HttpPost]
         [Route("send")]
-        public IActionResult SendCode([FromBody] SendCodeVisitorViewModel visitorModel)
+        public IActionResult SendCode([FromBody] RegisterVisitorViewModel visitorModel)
         {
             if (!ModelState.IsValid)
             {
