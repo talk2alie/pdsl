@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
+import { VisitorSubmittedViewModel } from './visitor-submitted.model';
+import { PdslApiService } from '../services/pdsl.api.service';
+import { RegisterVisitorViewModel } from './register-visitor.model';
 
 @Component({
     selector: 'pdsl-identity-submission-form',
@@ -9,7 +12,7 @@ import { EventEmitter } from '@angular/core';
             autocomplete="off"
             novalidate
             [formGroup]="userVerificationForm"
-            (ngSubmit)="onUserIdentityFormSubmit()"
+            (ngSubmit)="onVisitorIdentityFormSubmit()"
         >
             <div class="row">
                 <div class="col-md-4 text-start mb-3">
@@ -107,14 +110,14 @@ import { EventEmitter } from '@angular/core';
 })
 export class IdentitySubmissionFormComponent implements OnInit {
     identitySubmitted = false;
-    @Output() identityFormSubmitted = new EventEmitter<boolean>();
+    @Output() identityFormSubmitted = new EventEmitter<VisitorSubmittedViewModel>();
 
     userVerificationForm!: FormGroup;
     fullName!: FormControl;
     organization!: FormControl;
     emailAddress!: FormControl;
 
-    constructor() {}
+    constructor(private pdslApi: PdslApiService) {}
 
     ngOnInit() {
         this.fullName = new FormControl(null, [
@@ -136,10 +139,23 @@ export class IdentitySubmissionFormComponent implements OnInit {
         });
     }
 
-    onUserIdentityFormSubmit(): void {
-        console.log(this.userVerificationForm.value);
-        this.identitySubmitted = true;
-        this.identityFormSubmitted.emit(this.identitySubmitted);
+    onVisitorIdentityFormSubmit(): void {
+        let visitor: RegisterVisitorViewModel = {
+            fullName: this.fullName.value,
+            organization: this.organization.value,
+            email: this.emailAddress.value
+        };
+        this.pdslApi.registerVisitor(visitor)
+            .subscribe(result => {
+                let visitorSubmittedModel: VisitorSubmittedViewModel = {
+                    fullName: result.fullName,
+                    organization: result.organization,
+                    email: result.email,
+                    isVerified: result.isVerified,
+                    identitySubmitted: true
+                };
+                this.identityFormSubmitted.emit(visitorSubmittedModel);
+            })
     }
 
     showControlErrors(control: FormControl): boolean {

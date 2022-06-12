@@ -17,6 +17,18 @@ var connectionString = builder.Configuration.GetConnectionString("PdslDbContext"
 builder.Services.AddDbContext<PdslDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+var pdslPolicy = "DefaultPDSLPolicy";
+builder.Services.AddCors(options =>
+{
+    var defaultOrigin = builder.Configuration.GetSection("DefaultClientOrigin").Value;
+    options.AddPolicy(name: pdslPolicy, policy =>
+    {
+        policy.WithOrigins(defaultOrigin);
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(pdslPolicy);
 app.UseAuthorization();
 
 app.MapControllers();

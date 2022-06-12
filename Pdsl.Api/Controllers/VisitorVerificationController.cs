@@ -56,7 +56,7 @@ namespace Pdsl.Api.Controllers
                     visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
                     if (visitorVerificationRepository.CommitChanges())
                     {
-                        // Send email and return status
+                        // Send email and return visitor output model
                         return Ok(cryptoCode.Code);
                     }
                     return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
@@ -76,7 +76,7 @@ namespace Pdsl.Api.Controllers
             visitorVerificationRepository.Add(visitor);
             if (visitorVerificationRepository.CommitChanges())
             {
-                // Send email and return status
+                // Send email and return visitor output model
                 return Ok(cryptoCode.Code);
             }
 
