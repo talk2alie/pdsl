@@ -41,86 +41,104 @@ namespace Pdsl.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            CryptoCode cryptoCode;
-            Response sendCodeResponse;
-            CodeVerificationEmailToModel toModel;
-
-            var visitor = FindVisitor(visitorModel);
-            if (visitor is not null)
+            var existingVisitor = FindVisitor(visitorModel);
+            if (existingVisitor is not null)
             {
-                var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
-                if (visitor.IsVerified)
+                if (existingVisitor.IsVerified)
                 {
-                    visitor.Add(new Visit(Activity.Browse, DateTime.UtcNow));
-                    if (!visitorVerificationRepository.CommitChanges())
-                    {
-                        // Log this issue
-                    }
-
-                    visitorOutputModel.IsCodeVerified = true;
-                    visitorOutputModel.IsCodeSent = true;
-                    return Ok(visitorOutputModel);
+                    return AddVisitAndReturnOutputModel(existingVisitor);
                 }
                 else
                 {
-                    cryptoCode = authenticator.GenerateCode(visitor.Secret);
-                    toModel = new CodeVerificationEmailToModel
-                    {
-                        Code = cryptoCode.Code.ToString(),
-                        ToEmail = visitor.Email.ToString(),
-                        ToName = visitor.Name.ToString(),
-                    };
-                    sendCodeResponse = await mailingService.SendCodeVerificationEmail(toModel);
-                    if(sendCodeResponse.StatusCode == HttpStatusCode.Accepted)
-                    {
-                        visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
-                        visitorOutputModel.IsCodeVerified = false;
-                        visitorOutputModel.IsCodeSent = true;
-                        if (!visitorVerificationRepository.CommitChanges())
-                        {
-                            // Log this issue
-                        }
-                        return Ok(visitorOutputModel);
-                    }
-                    // Log this issue
-                    return StatusCode(StatusCodes.Status500InternalServerError, "Could not send code");
+                    return await GenerateNewCodeAndReturnOutputModel(existingVisitor);
                 }
             }
 
-            cryptoCode = authenticator.GenerateCode();
-            toModel = new CodeVerificationEmailToModel
+            return await RegisterNewVisitorFromModel(visitorModel);
+        }
+
+        private async Task<IActionResult> RegisterNewVisitorFromModel(RegisterVisitorViewModel visitorModel)
+        {
+            var cryptoCode = authenticator.GenerateCode();
+            var toModel = new CodeVerificationEmailToModel
             {
                 Code = cryptoCode.Code.ToString(),
                 ToEmail = visitorModel.Email,
                 ToName = visitorModel.FullName,
             };
             var response = await mailingService.SendCodeVerificationEmail(toModel);
-            if(response.StatusCode == HttpStatusCode.Accepted)
+            if (response.StatusCode == HttpStatusCode.Accepted)
             {
-                visitor = new Visitor
-                (
-                    NewGuid()
-                    , new Name(visitorModel.FullName!)
-                    , new Organization(visitorModel.Organization!)
-                    , new Email(visitorModel.Email!)
-                    , new Secret($"{cryptoCode.Secret}")
-                );
-                visitor.Add(new Visit(Activity.Register, DateTime.UtcNow));
-                visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
-                visitorVerificationRepository.Add(visitor);
-                if (!visitorVerificationRepository.CommitChanges())
-                {
-                    // Log this issue
-                }
-
-                var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
-                visitorOutputModel.IsCodeVerified = false;
-                visitorOutputModel.IsCodeSent = true;
-                return Ok(visitorOutputModel);
+                return RegisterNewVisitorAndReturnOutputModel(visitorModel, cryptoCode);
             }
 
             // Log this issue
             return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor registration");
+        }
+
+        private IActionResult RegisterNewVisitorAndReturnOutputModel(RegisterVisitorViewModel visitorModel, CryptoCode cryptoCode)
+        {
+            var newVisitor = new Visitor
+                            (
+                                NewGuid()
+                                , new Name(visitorModel.FullName!)
+                                , new Organization(visitorModel.Organization!)
+                                , new Email(visitorModel.Email!)
+                                , new Secret($"{cryptoCode.Secret}")
+                            );
+            newVisitor.Add(new Visit(Activity.Register, DateTime.UtcNow));
+            newVisitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
+            visitorVerificationRepository.Add(newVisitor);
+            if (!visitorVerificationRepository.CommitChanges())
+            {
+                // Log this issue
+            }
+
+            var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(newVisitor);
+            visitorOutputModel.IsCodeVerified = false;
+            visitorOutputModel.IsCodeSent = true;
+            return Ok(visitorOutputModel);
+        }
+
+        private async Task<IActionResult> GenerateNewCodeAndReturnOutputModel(Visitor visitor)
+        {
+            var cryptoCode = authenticator.GenerateCode(visitor.Secret);
+            var toModel = new CodeVerificationEmailToModel
+            {
+                Code = cryptoCode.Code.ToString(),
+                ToEmail = visitor.Email.ToString(),
+                ToName = visitor.Name.ToString(),
+            };
+            var sendCodeResponse = await mailingService.SendCodeVerificationEmail(toModel);
+            if (sendCodeResponse.StatusCode == HttpStatusCode.Accepted)
+            {
+                visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
+
+                var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
+                visitorOutputModel.IsCodeVerified = false;
+                visitorOutputModel.IsCodeSent = true;
+                if (!visitorVerificationRepository.CommitChanges())
+                {
+                    // Log this issue
+                }
+                return Ok(visitorOutputModel);
+            }
+            // Log this issue
+            return StatusCode(StatusCodes.Status500InternalServerError, "Could not send code");
+        }
+
+        private IActionResult AddVisitAndReturnOutputModel(Visitor visitor)
+        {
+            visitor.Add(new Visit(Activity.Browse, DateTime.UtcNow));
+            if (!visitorVerificationRepository.CommitChanges())
+            {
+                // Log this issue
+            }
+
+            var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
+            visitorOutputModel.IsCodeVerified = true;
+            visitorOutputModel.IsCodeSent = true;
+            return Ok(visitorOutputModel);
         }
 
         [HttpPost]
