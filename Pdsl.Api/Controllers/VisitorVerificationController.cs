@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Pdsl.Api.Licensing;
 using Pdsl.Api.Mailing;
 using Pdsl.Api.ViewModels;
+using SendGrid;
+using System.Net;
 using static System.Guid;
 
 namespace Pdsl.Api.Controllers
@@ -32,7 +34,7 @@ namespace Pdsl.Api.Controllers
 
         [HttpPost]
         [Route("send")]
-        public IActionResult SendCode([FromBody] RegisterVisitorViewModel visitorModel)
+        public async Task<IActionResult> SendCode([FromBody] RegisterVisitorViewModel visitorModel)
         {
             if (!ModelState.IsValid)
             {
@@ -40,6 +42,8 @@ namespace Pdsl.Api.Controllers
             }
 
             CryptoCode cryptoCode;
+            Response sendCodeResponse;
+            CodeVerificationEmailToModel toModel;
 
             var visitor = FindVisitor(visitorModel);
             if (visitor is not null)
@@ -48,48 +52,74 @@ namespace Pdsl.Api.Controllers
                 if (visitor.IsVerified)
                 {
                     visitor.Add(new Visit(Activity.Browse, DateTime.UtcNow));
-                    if (visitorVerificationRepository.CommitChanges())
+                    if (!visitorVerificationRepository.CommitChanges())
                     {
-                        visitorOutputModel.IsVerified = true;
-                        visitorOutputModel.IsCodeSent = true;
-                        return Ok(visitorOutputModel);
+                        // Log this issue
                     }
-                    return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
+
+                    visitorOutputModel.IsCodeVerified = true;
+                    visitorOutputModel.IsCodeSent = true;
+                    return Ok(visitorOutputModel);
                 }
                 else
                 {
                     cryptoCode = authenticator.GenerateCode(visitor.Secret);
-                    visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
-                    if (visitorVerificationRepository.CommitChanges())
+                    toModel = new CodeVerificationEmailToModel
                     {
-                        visitorOutputModel.IsVerified = false;
+                        Code = cryptoCode.Code.ToString(),
+                        ToEmail = visitor.Email.ToString(),
+                        ToName = visitor.Name.ToString(),
+                    };
+                    sendCodeResponse = await mailingService.SendCodeVerificationEmail(toModel);
+                    if(sendCodeResponse.StatusCode == HttpStatusCode.Accepted)
+                    {
+                        visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
+                        visitorOutputModel.IsCodeVerified = false;
                         visitorOutputModel.IsCodeSent = true;
-                        // Send email and return visitor output model
+                        if (!visitorVerificationRepository.CommitChanges())
+                        {
+                            // Log this issue
+                        }
                         return Ok(visitorOutputModel);
                     }
-                    return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
+                    // Log this issue
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Could not send code");
                 }
             }
 
             cryptoCode = authenticator.GenerateCode();
-            visitor = new Visitor
-            (
-                NewGuid()
-                , new Name(visitorModel.FullName!)
-                , new Organization(visitorModel.Organization!)
-                , new Email(visitorModel.Email!)
-                , new Secret($"{cryptoCode.Secret}")
-            );
-            visitor.Add(new Visit(Activity.Register, DateTime.UtcNow));
-            visitorVerificationRepository.Add(visitor);
-            if (visitorVerificationRepository.CommitChanges())
+            toModel = new CodeVerificationEmailToModel
             {
+                Code = cryptoCode.Code.ToString(),
+                ToEmail = visitorModel.Email,
+                ToName = visitorModel.FullName,
+            };
+            var response = await mailingService.SendCodeVerificationEmail(toModel);
+            if(response.StatusCode == HttpStatusCode.Accepted)
+            {
+                visitor = new Visitor
+                (
+                    NewGuid()
+                    , new Name(visitorModel.FullName!)
+                    , new Organization(visitorModel.Organization!)
+                    , new Email(visitorModel.Email!)
+                    , new Secret($"{cryptoCode.Secret}")
+                );
+                visitor.Add(new Visit(Activity.Register, DateTime.UtcNow));
+                visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
+                visitorVerificationRepository.Add(visitor);
+                if (!visitorVerificationRepository.CommitChanges())
+                {
+                    // Log this issue
+                }
+
                 var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
-                visitorOutputModel.IsVerified = false;
+                visitorOutputModel.IsCodeVerified = false;
                 visitorOutputModel.IsCodeSent = true;
                 return Ok(visitorOutputModel);
             }
 
+            // Log this issue
             return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor registration");
         }
 
@@ -116,13 +146,12 @@ namespace Pdsl.Api.Controllers
                 visitor.IsVerified = true;
                 visitor.Secret = new Secret(string.Empty);
                 visitor.Add(new Visit(Activity.Verify, DateTime.UtcNow));
-                if (visitorVerificationRepository.CommitChanges())
+                if (!visitorVerificationRepository.CommitChanges())
                 {
-                    visitorOutputModel.IsCodeVerified = true;
-                    return Ok(visitorOutputModel);
+                    // Log this
                 }
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Could not update visitor's verification status");
+                visitorOutputModel.IsCodeVerified = true;
+                return Ok(visitorOutputModel);
             }
 
             visitorOutputModel.IsCodeVerified = false;

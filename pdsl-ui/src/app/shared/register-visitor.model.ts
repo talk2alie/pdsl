@@ -8,5 +8,5 @@ export interface RegisterVisitorViewModel extends VisitorViewModel { }
 
 export interface RegisterVisitorOutputViewModel extends VisitorViewModel {
     isCodeSent: boolean;
-    isVerified: boolean;
+    isCodeVerified: boolean;
 }

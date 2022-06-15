@@ -151,7 +151,7 @@ export class IdentitySubmissionFormComponent implements OnInit {
                 organization: visitor.organization,
                 email: visitor.email,
                 isCodeSent: visitor.isCodeSent,
-                isVerified: visitor.isVerified
+                isCodeVerified: visitor.isCodeVerified
             };
             this.identityFormSubmitted.emit(visitorOutput);
         });

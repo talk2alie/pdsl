@@ -5,5 +5,5 @@ export interface VerifyCodeVisitorViewModel extends VisitorViewModel {
 }
 
 export interface VerifyCodeVisitorOutputViewModel extends VisitorViewModel {
-    isVerified: boolean;
+    isCodeVerified: boolean;
 }

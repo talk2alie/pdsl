@@ -21,28 +21,28 @@ export class LicensingComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.errorMessage = undefined;
     }
 
     onIdentitySubmitted(visitorSubmittedModel: RegisterVisitorOutputViewModel): void {
-        if(visitorSubmittedModel.isVerified) {
-            this.identityVerified = visitorSubmittedModel.isVerified;
-            this.identityFormSubmitted = visitorSubmittedModel.isCodeSent;
-            return;
+        if(!visitorSubmittedModel.isCodeVerified) {
+            this.submittedVisitor = visitorSubmittedModel;
         }
 
         this.identityFormSubmitted = visitorSubmittedModel.isCodeSent;
-        this.submittedVisitor = visitorSubmittedModel;
+        this.identityVerified = visitorSubmittedModel.isCodeVerified;
     }
 
     onIdentityVerified(vierifiedVisitor: VerifyCodeVisitorOutputViewModel): void {
-        this.identityVerified = vierifiedVisitor.isVerified;
-        this.errorMessage = undefined;
-        
+        this.identityVerified = vierifiedVisitor.isCodeVerified;
         if(!this.identityVerified) {
             this.submittedVisitor = undefined;
             this.identityFormSubmitted = false;
-            this.errorMessage = 'The code you provided was incorrect. Please try the process again.';
+            this.errorMessage = 'The code you provided was incorrect. Please retry submitting your information.';
+            return;
         }
+
+        this.identityFormSubmitted = true;
+        this.errorMessage = undefined;
     }
 }

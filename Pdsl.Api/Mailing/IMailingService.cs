@@ -1,7 +1,9 @@
-﻿namespace Pdsl.Api.Mailing
+﻿using SendGrid;
+
+namespace Pdsl.Api.Mailing
 {
     public interface IMailingService
     {
-        Task SendCodeVerificationEmail(string code);
+        Task<Response> SendCodeVerificationEmail(CodeVerificationEmailToModel toModel);
     }
 }
