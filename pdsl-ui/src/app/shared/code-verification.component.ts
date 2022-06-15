@@ -1,10 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PdslApiService } from '../services/pdsl.api.service';
+import { RegisterVisitorOutputViewModel } from './register-visitor.model';
+import { VerifyCodeVisitorOutputViewModel, VerifyCodeVisitorViewModel } from './verify-code.model';
 
 @Component({
     selector: 'pdsl-code-verification-form',
     template: `
-        <div *ngIf="identityFormSubmitted" id="identityVerificationForm">
+        <div
+            *ngIf="submittedVisitor && submittedVisitor.isCodeSent"
+            id="identityVerificationForm"
+        >
             <form
                 class="d-flex justify-content-center"
                 autocomplete="off"
@@ -52,13 +58,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
     `,
 })
 export class CodeVerificationFormComponent implements OnInit {
-    @Input() identityFormSubmitted!: boolean;
-    @Output() identityVerified = new EventEmitter<boolean>();
+    @Input() submittedVisitor?: RegisterVisitorOutputViewModel = undefined;
+    @Output() identityVerified = new EventEmitter<VerifyCodeVisitorOutputViewModel>();
 
     verificationCodeForm!: FormGroup;
     verificationCode!: FormControl;
 
-    constructor() {}
+    constructor(private pdslApi: PdslApiService) {}
 
     ngOnInit() {
         this.verificationCode = new FormControl(null, [
@@ -71,8 +77,20 @@ export class CodeVerificationFormComponent implements OnInit {
     }
 
     onVerificationCodeSubmit(): void {
-        console.log(this.verificationCodeForm.value);
-        this.identityVerified.emit(true);
+        if (!this.submittedVisitor) {
+            return;
+        }
+        let verifyCodeVisitor: VerifyCodeVisitorViewModel = {
+            code: this.verificationCode.value,
+            email: this.submittedVisitor.email,
+            fullName: this.submittedVisitor.fullName,
+            organization: this.submittedVisitor.organization,
+        };
+        this.pdslApi.verifyCode(verifyCodeVisitor).subscribe((visitor) => {
+            this.identityVerified.emit(visitor);
+        }, error => {
+            this.identityVerified.emit(error.error);
+        });
     }
 
     showControlErrors(control: FormControl): boolean {

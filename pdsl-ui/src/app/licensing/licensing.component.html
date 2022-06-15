@@ -18,10 +18,11 @@
                     </p>
                     <div class="card">
                         <div class="card-body">
+                            <p *ngIf="errorMessage" class="text-danger" [innerText]="errorMessage"></p>
                             <pdsl-identity-submission-form *ngIf="!identityFormSubmitted"
                                                            (identityFormSubmitted)="onIdentitySubmitted($event)"></pdsl-identity-submission-form>
-                            <pdsl-code-verification-form (identityVerified)="onIdentityVerified($event)"
-                                                         [identityFormSubmitted]="identityFormSubmitted">
+                            <pdsl-code-verification-form *ngIf="identityFormSubmitted" (identityVerified)="onIdentityVerified($event)"
+                                                         [submittedVisitor]="submittedVisitor">
                             </pdsl-code-verification-form>
                         </div>
                     </div>

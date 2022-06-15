@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { subscribeOn } from 'rxjs/operators';
-import { PdslApiService } from '../services/pdsl.api.service';
-import { VisitorOutputViewModel } from '../shared/visitor-output.model';
-import { VisitorSubmittedViewModel } from '../shared/visitor-submitted.model';
+import { RegisterVisitorOutputViewModel } from '../shared/register-visitor.model';
+import { VerifyCodeVisitorOutputViewModel } from '../shared/verify-code.model';
 
 @Component({
     selector: 'pdsl-licensing',
@@ -15,7 +12,9 @@ export class LicensingComponent implements OnInit {
     identityFormSubmitted = false;
     identityVerified = false;
 
-    visitor!: VisitorOutputViewModel;
+    submittedVisitor?: RegisterVisitorOutputViewModel = undefined;
+
+    errorMessage?: string = undefined;
 
     constructor(private titleService: Title) {
         this.titleService.setTitle('PDSL | Licensing');
@@ -25,23 +24,25 @@ export class LicensingComponent implements OnInit {
 
     }
 
-    onIdentitySubmitted(visitorSubmittedModel: VisitorSubmittedViewModel): void {
+    onIdentitySubmitted(visitorSubmittedModel: RegisterVisitorOutputViewModel): void {
         if(visitorSubmittedModel.isVerified) {
             this.identityVerified = visitorSubmittedModel.isVerified;
-            this.identityFormSubmitted = visitorSubmittedModel.identitySubmitted;
+            this.identityFormSubmitted = visitorSubmittedModel.isCodeSent;
             return;
         }
 
-        this.identityFormSubmitted = visitorSubmittedModel.identitySubmitted;
-        this.visitor = {
-            fullName: visitorSubmittedModel.fullName,
-            organization: visitorSubmittedModel.organization,
-            email: visitorSubmittedModel.email,
-            isVerified: visitorSubmittedModel.isVerified
-        };
+        this.identityFormSubmitted = visitorSubmittedModel.isCodeSent;
+        this.submittedVisitor = visitorSubmittedModel;
     }
 
-    onIdentityVerified(isVerified: boolean): void {
-        this.identityVerified = isVerified;
+    onIdentityVerified(vierifiedVisitor: VerifyCodeVisitorOutputViewModel): void {
+        this.identityVerified = vierifiedVisitor.isVerified;
+        this.errorMessage = undefined;
+        
+        if(!this.identityVerified) {
+            this.submittedVisitor = undefined;
+            this.identityFormSubmitted = false;
+            this.errorMessage = 'The code you provided was incorrect. Please try the process again.';
+        }
     }
 }

@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { VisitorSubmittedViewModel } from './visitor-submitted.model';
 import { PdslApiService } from '../services/pdsl.api.service';
-import { RegisterVisitorViewModel } from './register-visitor.model';
+import { RegisterVisitorOutputViewModel, VisitorViewModel } from './register-visitor.model';
 
 @Component({
     selector: 'pdsl-identity-submission-form',
@@ -110,7 +109,8 @@ import { RegisterVisitorViewModel } from './register-visitor.model';
 })
 export class IdentitySubmissionFormComponent implements OnInit {
     identitySubmitted = false;
-    @Output() identityFormSubmitted = new EventEmitter<VisitorSubmittedViewModel>();
+    @Output() identityFormSubmitted =
+        new EventEmitter<RegisterVisitorOutputViewModel>();
 
     userVerificationForm!: FormGroup;
     fullName!: FormControl;
@@ -140,22 +140,21 @@ export class IdentitySubmissionFormComponent implements OnInit {
     }
 
     onVisitorIdentityFormSubmit(): void {
-        let visitor: RegisterVisitorViewModel = {
+        let visitor: VisitorViewModel = {
             fullName: this.fullName.value,
             organization: this.organization.value,
-            email: this.emailAddress.value
+            email: this.emailAddress.value,
         };
-        this.pdslApi.registerVisitor(visitor)
-            .subscribe(result => {
-                let visitorSubmittedModel: VisitorSubmittedViewModel = {
-                    fullName: result.fullName,
-                    organization: result.organization,
-                    email: result.email,
-                    isVerified: result.isVerified,
-                    identitySubmitted: true
-                };
-                this.identityFormSubmitted.emit(visitorSubmittedModel);
-            })
+        this.pdslApi.registerVisitor(visitor).subscribe((visitor) => {
+            let visitorOutput: RegisterVisitorOutputViewModel = {
+                fullName: visitor.fullName,
+                organization: visitor.organization,
+                email: visitor.email,
+                isCodeSent: visitor.isCodeSent,
+                isVerified: visitor.isVerified
+            };
+            this.identityFormSubmitted.emit(visitorOutput);
+        });
     }
 
     showControlErrors(control: FormControl): boolean {

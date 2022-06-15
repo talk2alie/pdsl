@@ -1,5 +1,9 @@
-import { RegisterVisitorViewModel } from './register-visitor.model';
+import { VisitorViewModel } from './register-visitor.model';
 
-export interface VerifyCodeViewModel extends RegisterVisitorViewModel {
+export interface VerifyCodeVisitorViewModel extends VisitorViewModel {
     code: string;
+}
+
+export interface VerifyCodeVisitorOutputViewModel extends VisitorViewModel {
+    isVerified: boolean;
 }

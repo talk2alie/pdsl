@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Pdsl.Api.Data;
 using Pdsl.Api.Licensing;
+using Pdsl.Api.Mailing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddTransient<IVisitorVerificationRepository, VisitorVerificatio
 var connectionString = builder.Configuration.GetConnectionString("PdslDbContext");
 builder.Services.AddDbContext<PdslDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.Configure<MailApiSettings>(builder.Configuration.GetSection(nameof(MailApiSettings)));
+builder.Services.AddTransient<IMailingService, MailingService>();
 
 var pdslPolicy = "DefaultPDSLPolicy";
 builder.Services.AddCors(options =>

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegisterVisitorViewModel } from '../shared/register-visitor.model';
+import { RegisterVisitorOutputViewModel, VisitorViewModel } from '../shared/register-visitor.model';
 import { Observable } from 'rxjs';
-import { VisitorOutputViewModel } from '../shared/visitor-output.model';
-import { VerifyCodeViewModel } from '../shared/verify-code.model';
+import { VerifyCodeVisitorOutputViewModel, VerifyCodeVisitorViewModel } from '../shared/verify-code.model';
 
 @Injectable({ providedIn: 'root' })
 export class PdslApiService {
@@ -12,14 +11,19 @@ export class PdslApiService {
     constructor(private httpClient: HttpClient) {}
 
     registerVisitor(
-        visitor: RegisterVisitorViewModel
-    ): Observable<VisitorOutputViewModel> {
+        visitor: VisitorViewModel
+    ): Observable<RegisterVisitorOutputViewModel> {
         let url = `${this.baseUrl}/send`;
-        return this.httpClient.post<VisitorOutputViewModel>(url, visitor);
+        return this.httpClient.post<RegisterVisitorOutputViewModel>(url, visitor);
     }
 
-    verifyCode(visitorToVerify: VerifyCodeViewModel): Observable<VisitorOutputViewModel> {
+    verifyCode(
+        visitorToVerify: VerifyCodeVisitorViewModel
+    ): Observable<VerifyCodeVisitorOutputViewModel> {
         let url = `${this.baseUrl}/verify`;
-        return this.httpClient.post<VisitorOutputViewModel>(url, visitorToVerify);
+        return this.httpClient.post<VerifyCodeVisitorOutputViewModel>(
+            url,
+            visitorToVerify
+        );
     }
 }

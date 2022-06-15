@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Pdsl.Api.Licensing;
+using Pdsl.Api.Mailing;
 using Pdsl.Api.ViewModels;
 using static System.Guid;
 
@@ -13,16 +14,19 @@ namespace Pdsl.Api.Controllers
         private readonly IMapper mapper;
         private readonly IVisitorVerificationRepository visitorVerificationRepository;
         private readonly ITimedOneTimeAuthenticator authenticator;
+        private readonly IMailingService mailingService;
         private readonly ILogger<VisitorVerificationController> logger;
 
         public VisitorVerificationController(IMapper mapper
             , IVisitorVerificationRepository userVerificationRepository
             , ITimedOneTimeAuthenticator authenticator
+            , IMailingService mailingService
             , ILogger<VisitorVerificationController> logger)
         {
             this.mapper = mapper;
             this.visitorVerificationRepository = userVerificationRepository;
             this.authenticator = authenticator;
+            this.mailingService = mailingService;
             this.logger = logger;
         }
 
@@ -40,12 +44,14 @@ namespace Pdsl.Api.Controllers
             var visitor = FindVisitor(visitorModel);
             if (visitor is not null)
             {
+                var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
                 if (visitor.IsVerified)
                 {
                     visitor.Add(new Visit(Activity.Browse, DateTime.UtcNow));
                     if (visitorVerificationRepository.CommitChanges())
                     {
-                        var visitorOutputModel = mapper.Map<VisitorOutputViewModel>(visitor);
+                        visitorOutputModel.IsVerified = true;
+                        visitorOutputModel.IsCodeSent = true;
                         return Ok(visitorOutputModel);
                     }
                     return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
@@ -56,8 +62,10 @@ namespace Pdsl.Api.Controllers
                     visitor.Add(new Visit(Activity.RetrieveNewCode, DateTime.UtcNow));
                     if (visitorVerificationRepository.CommitChanges())
                     {
+                        visitorOutputModel.IsVerified = false;
+                        visitorOutputModel.IsCodeSent = true;
                         // Send email and return visitor output model
-                        return Ok(cryptoCode.Code);
+                        return Ok(visitorOutputModel);
                     }
                     return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor visit");
                 }
@@ -76,8 +84,10 @@ namespace Pdsl.Api.Controllers
             visitorVerificationRepository.Add(visitor);
             if (visitorVerificationRepository.CommitChanges())
             {
-                // Send email and return visitor output model
-                return Ok(cryptoCode.Code);
+                var visitorOutputModel = mapper.Map<RegisterVisitorOutputViewModel>(visitor);
+                visitorOutputModel.IsVerified = false;
+                visitorOutputModel.IsCodeSent = true;
+                return Ok(visitorOutputModel);
             }
 
             return StatusCode(StatusCodes.Status500InternalServerError, "Could not save visitor registration");
@@ -98,6 +108,7 @@ namespace Pdsl.Api.Controllers
                 return NotFound();
             }
 
+            var visitorOutputModel = mapper.Map<VerifyCodeVisitorOutputModel>(visitor);
             var codeIsValid = authenticator.UserCodeIsValid(visitor,
                 new CryptoCode(visitor.Secret, new Code(userModel.Code!)));
             if (codeIsValid)
@@ -107,14 +118,15 @@ namespace Pdsl.Api.Controllers
                 visitor.Add(new Visit(Activity.Verify, DateTime.UtcNow));
                 if (visitorVerificationRepository.CommitChanges())
                 {
-                    var visitorOutputModel = mapper.Map<VisitorOutputViewModel>(visitor);
+                    visitorOutputModel.IsCodeVerified = true;
                     return Ok(visitorOutputModel);
                 }
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not update visitor's verification status");
             }
 
-            return BadRequest("Code is invalid");
+            visitorOutputModel.IsCodeVerified = false;
+            return BadRequest(visitorOutputModel);
         }
 
         private Visitor? FindVisitor(VisitorViewModel model)
