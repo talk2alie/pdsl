@@ -20,13 +20,13 @@ namespace Pdsl.Api.Controllers
         private readonly ILogger<VisitorVerificationController> logger;
 
         public VisitorVerificationController(IMapper mapper
-            , IVisitorVerificationRepository userVerificationRepository
+            , IVisitorVerificationRepository visitorVerificationRepository
             , ITimedOneTimeAuthenticator authenticator
             , IMailingService mailingService
             , ILogger<VisitorVerificationController> logger)
         {
             this.mapper = mapper;
-            this.visitorVerificationRepository = userVerificationRepository;
+            this.visitorVerificationRepository = visitorVerificationRepository;
             this.authenticator = authenticator;
             this.mailingService = mailingService;
             this.logger = logger;
