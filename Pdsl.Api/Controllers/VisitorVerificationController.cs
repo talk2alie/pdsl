@@ -176,6 +176,13 @@ namespace Pdsl.Api.Controllers
             return BadRequest(visitorOutputModel);
         }
 
+        [HttpGet]
+        [Route("hello")]
+        public IActionResult Hello()
+        {
+            return Ok("Hello, World!");
+        }
+
         private Visitor? FindVisitor(VisitorViewModel model)
         {
             var name = new Name(model.FullName!);
