@@ -21,16 +21,21 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.Configure<MailApiSettings>(builder.Configuration.GetSection(nameof(MailApiSettings)));
 builder.Services.AddTransient<IMailingService, MailingService>();
 
-var pdslPolicy = "DefaultPDSLPolicy";
+// var pdslPolicy = "DefaultPDSLPolicy";
 builder.Services.AddCors(options =>
 {
-    var defaultOrigin = builder.Configuration.GetSection("DefaultClientOrigin").Value;
-    options.AddPolicy(name: pdslPolicy, policy =>
-    {
-        policy.WithOrigins(defaultOrigin);
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-    });
+    //var defaultOrigin = builder.Configuration.GetSection("DefaultClientOrigin").Value;
+    //options.AddPolicy(name: pdslPolicy, policy =>
+    //{
+    //    policy.WithOrigins(defaultOrigin)
+    //          .SetIsOriginAllowedToAllowWildcardSubdomains()
+    //          .AllowAnyHeader()
+    //          .AllowAnyMethod();
+    //});
+    options.AddDefaultPolicy(policy => 
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod());
 });
 
 var app = builder.Build();
@@ -44,7 +49,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(pdslPolicy);
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
