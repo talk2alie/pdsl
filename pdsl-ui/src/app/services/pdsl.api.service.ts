@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { RegisterVisitorOutputViewModel, VisitorViewModel } from '../shared/register-visitor.model';
 import { Observable } from 'rxjs';
 import { VerifyCodeVisitorOutputViewModel, VerifyCodeVisitorViewModel } from '../shared/verify-code.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PdslApiService {
-    private baseUrl = 'https://localhost:7006/visitorverification';
+    private baseUrl = environment.apiBaseUrl;
 
     constructor(private httpClient: HttpClient) {}
 
