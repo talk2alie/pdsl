@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiBaseUrl: 'https://api.pd.gov.sl/visitorverification',
+    apiBaseUrl: 'http://api.pd.gov.sl/visitorverification',
 };
