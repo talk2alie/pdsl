@@ -2,7 +2,10 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { PdslApiService } from '../services/pdsl.api.service';
-import { RegisterVisitorOutputViewModel, VisitorViewModel } from './register-visitor.model';
+import {
+    RegisterVisitorOutputViewModel,
+    VisitorViewModel,
+} from './register-visitor.model';
 
 @Component({
     selector: 'pdsl-identity-submission-form',
@@ -95,11 +98,20 @@ import { RegisterVisitorOutputViewModel, VisitorViewModel } from './register-vis
                 <div class="row">
                     <div class="col-md-6 text-start mb-3">
                         <button
-                            type="submit"
                             class="btn btn-primary"
-                            [disabled]="userVerificationForm.invalid"
+                            type="submit"
+                            [disabled]="
+                                userVerificationForm.invalid || isLoading
+                            "
                         >
                             Submit
+                            <span *ngIf="isLoading">&nbsp;</span>
+                            <span
+                                *ngIf="isLoading"
+                                class="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
                         </button>
                     </div>
                 </div>
@@ -116,6 +128,8 @@ export class IdentitySubmissionFormComponent implements OnInit {
     fullName!: FormControl;
     organization!: FormControl;
     emailAddress!: FormControl;
+
+    isLoading = false;
 
     constructor(private pdslApi: PdslApiService) {}
 
@@ -140,6 +154,10 @@ export class IdentitySubmissionFormComponent implements OnInit {
     }
 
     onVisitorIdentityFormSubmit(): void {
+        this.isLoading = true;
+
+        console.log(this.isLoading);
+
         let visitor: VisitorViewModel = {
             fullName: this.fullName.value,
             organization: this.organization.value,
@@ -151,8 +169,9 @@ export class IdentitySubmissionFormComponent implements OnInit {
                 organization: visitor.organization,
                 email: visitor.email,
                 isCodeSent: visitor.isCodeSent,
-                isCodeVerified: visitor.isCodeVerified
+                isCodeVerified: visitor.isCodeVerified,
             };
+            this.isLoading = false;
             this.identityFormSubmitted.emit(visitorOutput);
         });
     }
