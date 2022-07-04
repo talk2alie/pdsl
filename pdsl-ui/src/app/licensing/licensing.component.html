@@ -1,0 +1,201 @@
+<section class="pt-2 pb-5 bg-light-blue">
+   <div class="container">
+      <div class="row">
+         <div class="col">
+            <div class="embed-responsive embed-responsive-16by9 text-center">
+               <iframe class="embed-responsive-item"
+                       src="https://www.youtube.com/embed/jVtG_gbv7ms"
+                       title="PDSL Promotional Video"
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                       allowfullscreen></iframe>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col text-center">
+            <h1 class="pdsl-blue mt-4 mb-4">5th Licensing Round</h1>
+            <div *ngIf="!identityVerified">
+               <p *ngIf="!identityFormSubmitted"
+                  id="identityRequestText"
+                  class="text-center lead">
+                  We work daily to ensure you get all the information you need to place a bid or apply for a license.
+                  To access information on the licensing and bidding process, we are asking that you verify yourself and
+                  your organization by providing us the following verifiable information:
+               </p>
+               <p *ngIf="identityFormSubmitted"
+                  id="identityVerificationText"
+                  class="text-center lead">
+                  To verify your information, please enter the code we sent to the email you provided earlier:
+               </p>
+               <div class="card">
+                  <div class="card-body">
+                     <p *ngIf="errorMessage"
+                        class="text-danger"
+                        [innerText]="errorMessage"></p>
+                     <pdsl-identity-submission-form *ngIf="!identityFormSubmitted"
+                                                    (identityFormSubmitted)="onIdentitySubmitted($event)"></pdsl-identity-submission-form>
+                     <pdsl-code-verification-form *ngIf="identityFormSubmitted"
+                                                  (identityVerified)="onIdentityVerified($event)"
+                                                  [submittedVisitor]="submittedVisitor">
+                     </pdsl-code-verification-form>
+                  </div>
+               </div>
+            </div>
+            <div *ngIf="identityVerified">
+               <p class="text-center lead text-success">
+                  <span class="fw-bold">Thank you for introducing yourself to us!</span> <br>
+                  We will connect with you soon to ensure the process is smooth for you.
+                  In the meantime, please view the relevant documents below:
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="pt-5 pb-5">
+   <div class="container"
+        *ngIf="identityVerified">
+      <h3 class="text-center pdsl-blue">Bid Documents</h3>
+      <div class="d-flex flex-wrap">
+         <a href="/assets/licensing/bids/1 Pre-Qualification Guidelines For Investors.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">1. Pre-Qualification Guidelines For Investors</a>
+         <a href="/assets/licensing/bids/2 Application Guidelines For Investors.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">2. Application Guidelines For Investors</a>
+         <a href="/assets/licensing/bids/3 Application Process - Petroleum Rights.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">3. Application Process - Petroleum Rights</a>
+         <a href="/assets/licensing/bids/4 Section A - Applicant Details & Financial Information.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">4. Section A - Applicant Details & Financial Information</a>
+         <a href="/assets/licensing/bids/5 Section B - Technical Summary.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">5. Section B - Technical Summary</a>
+         <a href="/assets/licensing/bids/6 Section C - Commercial Proposal.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">6. Section C - Commercial Proposal</a>
+         <a href="/assets/licensing/bids/7 Section D - HSE Summary.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">7. Section D - HSE Summary</a>
+         <a href="/assets/licensing/bids/8 Negotiation Termsheet.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">8. Negotiation Termsheet</a>
+         <a href="/assets/licensing/bids/9 Bid Evaluation Scorecard.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">9. Bid Evaluation Scorecard</a>
+         <a href="/assets/licensing/bids/10 Reconnaissance Permit Fees.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">10. Reconnaissance Permit Fees</a>
+         <a href="/assets/licensing/bids/11 Section A - Applicant Details & Financial Information.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">11. Section A - Applicant Details & Financial Information</a>
+         <a href="/assets/licensing/bids/12 Section B - Technical Summary.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">12. Section B - Technical Summary</a>
+         <a href="/assets/licensing/bids/13 Section C - Commercial Proposal.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">13. Section C - Commercial Proposal</a>
+         <a href="/assets/licensing/bids/14 Section D - HSE Summary.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">14. Section D - HSE Summary</a>
+         <a href="/assets/licensing/bids/15 Negotiation Termsheet.doc"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">15. Negotiation Termsheet</a>
+         <a href="/assets/licensing/bids/16 Data Room Rules.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">16. Data Room Rules</a>
+         <a href="/assets/licensing/bids/17 Bid Evaluation Scorecard.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">17. Bid Evaluation Scorecard</a>
+         <a href="/assets/licensing/bids/18 Data Room Rules.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">18. Data Room Rules</a>
+      </div>
+   </div>
+</section>
+<section class="pt-5 pb-5 bg-light-blue"
+         *ngIf="identityVerified">
+   <div class="container">
+      <h3 class="text-center pdsl-blue">Legal Documents</h3>
+      <div class="d-flex flex-wrap">
+         <a href="/assets/licensing/legal/1 Petroleum Policy 2010.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">1. Petroleum Policy 2010</a>
+         <a href="/assets/licensing/legal/2 PEPA 2011.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">2. PEPA 2011</a>
+         <a href="/assets/licensing/legal/3 PEPA 2014 - Amendment.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">3. PEPA 2014 - Amendment</a>
+         <a href="/assets/licensing/legal/4 EIRA 2018.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">4. EIRA 2018</a>
+         <a href="/assets/licensing/legal/5 EPA 2008.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">5. EPA 2008</a>
+         <a href="/assets/licensing/legal/6 EPA (EIA Licensing Regulation) 2010.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">6. EPA (EIA Licensing Regulation) 2010</a>
+         <a href="/assets/licensing/legal/7 Finance Act 2020.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">7. Finance Act 2020</a>
+         <a href="/assets/licensing/legal/8 Public Finance Management Act 2016.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">8. Public Finance Management Act 2016</a>
+         <a href="/assets/licensing/legal/9 Consolidated Income Tax Act 2000.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">9. Consolidated Income Tax Act 2000</a>
+         <a href="/assets/licensing/legal/10 Income Tax Act 2000.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">10. Income Tax Act 2000</a>
+         <a href="/assets/licensing/legal/11 Goods and Services Tax Act 2009.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">11. Goods and Services Tax Act 2009</a>
+         <a href="/assets/licensing/legal/12 Local Content Act 2016.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">12. Local Content Act 2016</a>
+         <a href="/assets/licensing/legal/13 Companies Act 2009.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">13. Companies Act 2009</a>
+         <a href="/assets/licensing/legal/14 Companies Act Amendment 2014.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">14. Companies Act Amendment 2014</a>
+      </div>
+   </div>
+</section>
+<section class="pt-5 pb-5"
+         *ngIf="identityVerified">
+   <div class="container">
+      <h3 class="text-center pdsl-blue">Other Documents</h3>
+      <div class="d-flex flex-wrap">
+         <a href="/assets/licensing/1 Advert for Fifth Licensing Round.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Advert for Fifth Licensing Round</a>
+         <a href="/assets/licensing/1 Concession Map & Coordinates.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Concession Map & Coordinates</a>
+         <a href="/assets/licensing/1 Fifth Licensing Round Brochure.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Fifth Licensing Round Brochure</a>
+         <a href="/assets/licensing/1 Model Petroleum Agreement.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Model Petroleum Agreement</a>
+         <a href="/assets/licensing/1 PDSL Bank Account Details.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">PDSL Bank Account Details</a>
+         <a href="/assets/licensing/1 Presentation - Fifth Licensing Round Launch.pptx"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Presentation - Fifth Licensing Round Launch</a>
+         <a href="/assets/licensing/2 Advert for Fifth Licensing Round.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Advert for Fifth Licensing Round</a>
+         <a href="/assets/licensing/2 Model Reconnaissance Agreement.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Model Reconnaissance Agreement</a>
+         <a href="/assets/licensing/Acreage Release Announcement - Gazette.pdf"
+            target="_blank"
+            class="btn btn-primary flex-fill m-2">Acreage Release Announcement - Gazette</a>
+      </div>
+   </div>
+</section>
