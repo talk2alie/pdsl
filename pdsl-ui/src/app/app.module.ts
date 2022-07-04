@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -15,27 +16,34 @@ import { routes } from './routes';
 import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { PressReleaseComponent } from './press-release/press-release.component';
+import { LicensingComponent } from './licensing/licensing.component';
+import { CodeVerificationFormComponent } from './shared/code-verification.component';
+import { IdentitySubmissionFormComponent } from './shared/identity-submission.component';
 
 @NgModule({
-declarations: [
-    AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    FooterComponent,
-    OperationsComponent,
-    RegulationsComponent,
-    AboutComponent,
-    PageNotFoundComponent,
-    StaffDetailComponent,
-    ApplicationsComponent,
-    PressReleaseComponent
-],
-imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes)
-],
-providers: [Title],
-bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        HomeComponent,
+        FooterComponent,
+        OperationsComponent,
+        RegulationsComponent,
+        AboutComponent,
+        PageNotFoundComponent,
+        StaffDetailComponent,
+        ApplicationsComponent,
+        PressReleaseComponent,
+        LicensingComponent,
+        CodeVerificationFormComponent,
+        IdentitySubmissionFormComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(routes),
+    ],
+    providers: [Title],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
