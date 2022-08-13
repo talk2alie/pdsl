@@ -19,6 +19,7 @@ import { PressReleaseComponent } from './press-release/press-release.component';
 import { LicensingComponent } from './licensing/licensing.component';
 import { CodeVerificationFormComponent } from './shared/code-verification.component';
 import { IdentitySubmissionFormComponent } from './shared/identity-submission.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { IdentitySubmissionFormComponent } from './shared/identity-submission.co
         PressReleaseComponent,
         LicensingComponent,
         CodeVerificationFormComponent,
-        IdentitySubmissionFormComponent
+        IdentitySubmissionFormComponent,
+        GalleryComponent
     ],
     imports: [
         BrowserModule,
