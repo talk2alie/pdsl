@@ -35,4 +35,12 @@ export const pressReleases: PressRelease[] = [
         filePath: '/assets/press-releases/IOG-Press-Release.pdf',
         releaseDate: new Date('2022-05-28'),
     },
+    {
+        title: 'Bid Round Extension',
+        description:
+            'The Government of Sierra Leone (GOSL), through the Petroleum Directorate of Sierra Leone (PDSL), is pleased to announce an extension of the timeframe for the Republic of Sierra Leone’s 5th Offshore License Round to accommodate the increased interest from International and National Oil Companies and provide them with the time needed to complete their G&G analysis',
+        bannerImagePath: '/assets/press-releases/hero.jpg',
+        filePath: '/assets/press-releases/Bid-Round-Extension.pdf',
+        releaseDate: new Date('2022-09-13'),
+    },
 ];
