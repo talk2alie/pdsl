@@ -43,4 +43,12 @@ export const pressReleases: PressRelease[] = [
         filePath: '/assets/press-releases/Bid-Round-Extension.pdf',
         releaseDate: new Date('2022-09-13'),
     },
+    {
+        title: 'Sierra Leone 5th Offshore License Extension',
+        description:
+            'The Government of Sierra Leone through the Petroleum Directorate of Sierra Leone (PDSL) is excited to announce the extension of the Sierra Leone 5th Offshore License Round.',
+        bannerImagePath: '/assets/press-releases/hero.jpg',
+        filePath: '/assets/press-releases/SL-Bid-Round-Extension.pdf',
+        releaseDate: new Date('2023-01-20'),
+    },
 ];
