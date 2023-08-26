@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { VerifyCodeVisitorOutputViewModel, VerifyCodeVisitorViewModel } from '../shared/verify-code.model';
 import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root', })
 export class PdslApiService {
     private baseUrl = environment.apiBaseUrl;
 

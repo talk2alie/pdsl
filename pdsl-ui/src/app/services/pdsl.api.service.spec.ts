@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Pdsl.ApiService } from './pdsl.api.service';
+import { PdslApiService } from './pdsl.api.service';
 
 describe('Pdsl.ApiService', () => {
-  let service: Pdsl.ApiService;
+  let service: PdslApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Pdsl.ApiService);
+    service = TestBed.inject(PdslApiService);
   });
 
   it('should be created', () => {

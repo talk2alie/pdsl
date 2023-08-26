@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { PdslApiService } from '../services/pdsl.api.service';
 import {
@@ -124,29 +124,29 @@ export class IdentitySubmissionFormComponent implements OnInit {
     @Output() identityFormSubmitted =
         new EventEmitter<RegisterVisitorOutputViewModel>();
 
-    userVerificationForm!: FormGroup;
-    fullName!: FormControl;
-    organization!: FormControl;
-    emailAddress!: FormControl;
+    userVerificationForm!: UntypedFormGroup;
+    fullName!: UntypedFormControl;
+    organization!: UntypedFormControl;
+    emailAddress!: UntypedFormControl;
 
     isLoading = false;
 
     constructor(private pdslApi: PdslApiService) {}
 
     ngOnInit() {
-        this.fullName = new FormControl(null, [
+        this.fullName = new UntypedFormControl(null, [
             Validators.required,
             Validators.maxLength(255),
         ]);
-        this.organization = new FormControl(null, [
+        this.organization = new UntypedFormControl(null, [
             Validators.required,
             Validators.maxLength(255),
         ]);
-        this.emailAddress = new FormControl(null, [
+        this.emailAddress = new UntypedFormControl(null, [
             Validators.required,
             Validators.email,
         ]);
-        this.userVerificationForm = new FormGroup({
+        this.userVerificationForm = new UntypedFormGroup({
             fullName: this.fullName,
             organization: this.organization,
             emailAddress: this.emailAddress,
@@ -174,7 +174,7 @@ export class IdentitySubmissionFormComponent implements OnInit {
         });
     }
 
-    showControlErrors(control: FormControl): boolean {
+    showControlErrors(control: UntypedFormControl): boolean {
         return control.invalid && (control.dirty || control.touched);
     }
 }

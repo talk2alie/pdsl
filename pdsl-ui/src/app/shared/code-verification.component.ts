@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PdslApiService } from '../services/pdsl.api.service';
 import { RegisterVisitorOutputViewModel } from './register-visitor.model';
 import { VerifyCodeVisitorOutputViewModel, VerifyCodeVisitorViewModel } from './verify-code.model';
@@ -61,17 +61,17 @@ export class CodeVerificationFormComponent implements OnInit {
     @Input() submittedVisitor?: RegisterVisitorOutputViewModel = undefined;
     @Output() identityVerified = new EventEmitter<VerifyCodeVisitorOutputViewModel>();
 
-    verificationCodeForm!: FormGroup;
-    verificationCode!: FormControl;
+    verificationCodeForm!: UntypedFormGroup;
+    verificationCode!: UntypedFormControl;
 
     constructor(private pdslApi: PdslApiService) {}
 
     ngOnInit() {
-        this.verificationCode = new FormControl(null, [
+        this.verificationCode = new UntypedFormControl(null, [
             Validators.required,
             Validators.maxLength(6),
         ]);
-        this.verificationCodeForm = new FormGroup({
+        this.verificationCodeForm = new UntypedFormGroup({
             verificationCode: this.verificationCode,
         });
     }
@@ -93,7 +93,7 @@ export class CodeVerificationFormComponent implements OnInit {
         });
     }
 
-    showControlErrors(control: FormControl): boolean {
+    showControlErrors(control: UntypedFormControl): boolean {
         return control.invalid && (control.dirty || control.touched);
     }
 }
